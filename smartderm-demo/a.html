@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMARTDERM - Plataforma Educativa en Dermatología</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #ffffff;
+            color: #4a4a4a;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        header {
+            background: linear-gradient(to right, #00bfa5, #00897b);
+            color: white;
+            padding: 20px;
+            border-radius: 0 0 15px 15px;
+            position: relative;
+        }
+        
+        #taskbar {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        
+        #taskbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        
+        #taskbar li {
+            margin-right: 15px;
+        }
+        
+        #taskbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        h1,
+        h2,
+        h3 {
+            color: #00bfa5;
+        }
+        
+        input,
+        select,
+        button {
+            width: 80%;
+            max-width: 400px;
+            padding: 12px;
+            margin: 10px auto;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        button {
+            background: #00bfa5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: #00897b;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 20px;
+            height: 25px;
+            margin: 20px auto;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: #00bfa5;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+            color: white;
+            line-height: 25px;
+            font-weight: bold;
+        }
+        
+        .course-card {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px auto;
+            max-width: 500px;
+            text-align: left;
+        }
+        
+        .course-card button {
+            width: auto;
+            padding: 8px 15px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav id="taskbar" style="display: none;">
+            <ul>
+                <li><a href="#" onclick="showDashboard()">Inicio</a></li>
+                <li><a href="#" onclick="showMyCourses()">Mis Cursos</a></li>
+                <li><a href="#" onclick="showUpcoming()">Próximos Desarrollos</a></li>
+            </ul>
+        </nav>
+        <img src="assets/logo-smartderm.png" alt="Logo SMARTDERM" width="180" height="auto">
+        <h1>SMARTDERM</h1>
+        <p>Institución Académica Digital en Dermatología Profesional</p>
+    </header>
+
+    <section id="auth">
+        <div id="loginForm">
+            <h2>Iniciar Sesión</h2>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <select id="role">
+                <option value="estudiante">Estudiante</option>
+                <option value="docente">Docente</option>
+                <option value="admin">Administrador</option>
+            </select>
+            <button onclick="login()">Ingresar</button>
+            <p>¿Nuevo? <a href="#" onclick="toggleRegister()">Regístrate</a></p>
+        </div>
+
+        <div id="registerForm" style="display: none;">
+            <h2>Registro</h2>
+            <input type="text" id="name" placeholder="Nombre completo" required>
+            <input type="email" id="regEmail" placeholder="Email" required>
+            <input type="password" id="regPassword" placeholder="Contraseña" required>
+            <select id="regRole">
+                <option value="estudiante">Estudiante</option>
+                <option value="docente">Docente</option>
+            </select>
+            <button onclick="register()">Registrar</button>
+            <p><a href="#" onclick="toggleRegister()">Volver a login</a></p>
+        </div>
+    </section>
+
+    <section id="dashboard" style="display: none;">
+        <h2 id="welcome"></h2>
+        <div id="progressContainer" style="display: none;">
+            <h3>Tu Progreso General</h3>
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill">0%</div>
+            </div>
+        </div>
+
+        <h3>Cursos Iniciales (Fundamentos Dermatológicos)</h3>
+        <div id="courses"></div>
+
+        <div id="adminPanel" style="display: none;">
+            <h3>Panel Admin (Submenú Especial)</h3>
+            <p>Usuarios registrados: <span id="userCount">0</span></p>
+            <p>Ventas Totales: Simuladas en $0</p>
+        </div>
+
+        <div id="docentePanel" style="display: none;">
+            <h3>Panel Docente: Gestiona Cursos</h3>
+            <input type="text" id="newCourseName" placeholder="Nombre del nuevo curso">
+            <input type="text" id="newCourseDesc" placeholder="Descripción">
+            <input type="number" id="newCoursePrice" placeholder="Precio (COP)">
+            <button onclick="addCourse()">Agregar Curso</button>
+            <h4>Cursos Existentes (Quitar)</h4>
+            <div id="docenteCourses"></div>
+        </div>
+
+        <div id="myCoursesSection" style="display: none;">
+            <h3>Mis Cursos</h3>
+            <div id="myCoursesList"></div>
+        </div>
+
+        <div id="upcomingSection" style="display: none;">
+            <h3>Próximos Desarrollos (Escalabilidad No Negociable)</h3>
+            <ul>
+                <li>App Móvil: Acceso offline a cursos comprados.</li>
+                <li>Congresos Online/Híbridos: Transmisión en vivo y chat.</li>
+                <li>Comunidad Académica: Foro clínico para discusiones.</li>
+                <li>Q-Bank Avanzado: Miles de preguntas con ranking global.</li>
+            </ul>
+        </div>
+
+        <!-- Modal para detalle de curso -->
+        <div id="courseModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">×</span>
+                <h3 id="modalTitle"></h3>
+                <p id="modalDesc"></p>
+                <h4>Video Educativo</h4>
+                <iframe id="modalVideo" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
+                <div id="modalEvaluation"></div>
+            </div>
+        </div>
+
+        <button onclick="logout()">Cerrar Sesión</button>
+    </section>
+
+    <script>
+        // Datos iniciales de cursos (del brief)
+        let courses = JSON.parse(localStorage.getItem('courses')) || [{
+            id: 1,
+            name: "DERM-Q MASTER",
+            desc: "Curso maestro en fundamentos dermatológicos. Incluye descripción de lesiones primarias y secundarias, anatomía cutánea básica y enfoque clínico inicial.",
+            price: 120000,
+            creator: "docente@example.com",
+            video: "https://www.youtube.com/embed/Ijae4iURrDI"
+        }, {
+            name: "Dermocosmética Clínica Pro",
+            desc: "Avanzado en cosmética para piel. Tratamientos estéticos, ingredientes activos, retinoides, ácidos y protocolos clínicos.",
+            price: 150000,
+            creator: "docente@example.com",
+            video: "https://www.youtube.com/embed/IOL_YwDST2s"
+        }, {
+            name: "Inmunología Cutánea Simplificada",
+            desc: "Conceptos clave de inmunología en la piel. Barrera inmune, TLR, keratinocytes, respuestas inflamatorias y enfermedades autoinmunes.",
+            price: 100000,
+            creator: "docente@example.com",
+            video: "https://www.youtube.com/embed/_VhcZTGv0CU"
+        }, {
+            name: "Nutrición Dermatológica Integrativa",
+            desc: "Nutrición para la salud cutánea. Vitaminas, omega-3, antioxidantes, dieta antiinflamatoria y su impacto en acné, psoriasis y envejecimiento.",
+            price: 110000,
+            creator: "docente@example.com",
+            video: "https://www.youtube.com/embed/5JKQluW6q9w"
+        }, {
+            name: "Neuroestilo de Vida y Piel",
+            desc: "Impacto del estilo de vida en la piel. Estrés, sueño, ejercicio, mente-cuerpo y su relación con condiciones dermatológicas.",
+            price: 130000,
+            creator: "docente@example.com",
+            video: "https://www.youtube.com/embed/5JKQluW6q9w"
+        }];
+
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let currentUser = null;
+
+        // Toggle login/register
+        function toggleRegister() {
+            const login = document.getElementById('loginForm');
+            const reg = document.getElementById('registerForm');
+            login.style.display = login.style.display === 'none' ? 'block' : 'none';
+            reg.style.display = reg.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Registro
+        function register() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const pass = document.getElementById('regPassword').value;
+            const role = document.getElementById('regRole').value;
+
+            if (!name || !email || !pass) return alert('Completa todos los campos');
+            if (users.find(u => u.email === email)) return alert('Email ya registrado');
+
+            const newUser = {
+                name,
+                email,
+                pass,
+                role,
+                progress: 0,
+                processedCourses: []
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('Registro exitoso. Inicia sesión.');
+            toggleRegister();
+        }
+
+        // Login
+        function login() {
+            const email = document.getElementById('email').value.trim();
+            const pass = document.getElementById('password').value;
+            const selectedRole = document.getElementById('role').value;
+
+            const user = users.find(u => u.email === email && u.pass === pass);
+            if (!user) return alert('Credenciales incorrectas');
+
+            if (selectedRole === 'admin' && email !== 'admin@smartderm.com') {
+                return alert('Acceso admin solo con email: admin@smartderm.com');
+            }
+
+            currentUser = {...user,
+                role: selectedRole
+            };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            document.getElementById('auth').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('taskbar').style.display = 'block';
+
+            loadDashboard();
+        }
+
+        // Cargar dashboard
+        function loadDashboard() {
+            document.getElementById('welcome').innerText = `Bienvenido, ${currentUser.name} (${currentUser.role})`;
+
+            document.getElementById('progressContainer').style.display = currentUser.role === 'estudiante' ? 'block' : 'none';
+            if (currentUser.role === 'estudiante') updateProgress(currentUser.progress || 0);
+
+            document.getElementById('docentePanel').style.display = currentUser.role === 'docente' ? 'block' : 'none';
+            document.getElementById('adminPanel').style.display = currentUser.role === 'admin' ? 'block' : 'none';
+
+            if (currentUser.role === 'admin') {
+                document.getElementById('userCount').innerText = users.length;
+            }
+
+            loadCourses();
+
+            if (currentUser.role === 'docente') loadDocenteCourses();
+        }
+
+        // Cargar cursos
+        function loadCourses() {
+            const container = document.getElementById('courses');
+            container.innerHTML = '';
+            courses.forEach(course => {
+                const card = document.createElement('div');
+                card.className = 'course-card';
+                card.innerHTML = `
+                    <h4>${course.name}</h4>
+                    <p>${course.desc.substring(0, 100)}...</p>
+                    <p><strong>Precio:</strong> $${course.price.toLocaleString('es-CO')}</p>
+                    <button onclick='accessCourse(${JSON.stringify(course)})'>Acceder / Evaluar</button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Abrir modal y marcar como procesado
+        function accessCourse(course) {
+            markCourseAsProcessed(course.name);
+
+            document.getElementById('courseModal').style.display = 'block';
+            document.getElementById('modalTitle').innerText = course.name;
+            document.getElementById('modalDesc').innerText = course.desc;
+            document.getElementById('modalVideo').src = course.video + '?autoplay=1';
+
+            const evalContainer = document.getElementById('modalEvaluation');
+            evalContainer.innerHTML = '<h4>Mini Evaluación Temática</h4>';
+
+            let questions = [];
+            switch (course.name) {
+                case "DERM-Q MASTER":
+                    questions = [{
+                        q: "¿Qué describe la dermatología?",
+                        opts: ["La piel y sus anexos", "Los huesos"],
+                        ans: 0
+                    }, {
+                        q: "Lesión primaria ejemplo:",
+                        opts: ["Mácula", "Cicatriz"],
+                        ans: 0
+                    }];
+                    break;
+                case "Dermocosmética Clínica Pro":
+                    questions = [{
+                        q: "¿Objetivo principal?",
+                        opts: ["Cuidado estético preventivo", "Cirugía reconstructiva"],
+                        ans: 0
+                    }, {
+                        q: "Retinoides para:",
+                        opts: ["Reducir arrugas y acné", "Aumentar pigmentación"],
+                        ans: 0
+                    }];
+                    break;
+                case "Inmunología Cutánea Simplificada":
+                    questions = [{
+                        q: "Rol de la piel en inmunidad:",
+                        opts: ["Barrera física e inmune", "Digestión"],
+                        ans: 0
+                    }, {
+                        q: "TLR detectan:",
+                        opts: ["Patógenos", "Vitaminas"],
+                        ans: 0
+                    }];
+                    break;
+                case "Nutrición Dermatológica Integrativa":
+                    questions = [{
+                        q: "Nutriente antioxidante clave:",
+                        opts: ["Vitamina C", "Azúcar refinada"],
+                        ans: 0
+                    }, {
+                        q: "Omega-3 ayuda a:",
+                        opts: ["Reducir inflamación", "Aumentar sebo"],
+                        ans: 0
+                    }];
+                    break;
+                case "Neuroestilo de Vida y Piel":
+                    questions = [{
+                        q: "Estrés crónico causa:",
+                        opts: ["Acné, rosácea, envejecimiento", "Mejor hidratación"],
+                        ans: 0
+                    }, {
+                        q: "Sueño adecuado favorece:",
+                        opts: ["Regeneración cutánea", "Arrugas"],
+                        ans: 0
+                    }];
+                    break;
+                default:
+                    questions = [{
+                        q: "Pregunta de prueba",
+                        opts: ["A", "B"],
+                        ans: 0
+                    }];
+            }
+
+            questions.forEach((q, i) => {
+                evalContainer.innerHTML += `
+                    <p><strong>Pregunta ${i+1}:</strong> ${q.q}</p>
+                    <label><input type="radio" name="q${i}" value="0"> ${q.opts[0]}</label><br>
+                    <label><input type="radio" name="q${i}" value="1"> ${q.opts[1]}</label><br>
+                    <button onclick="submitEval(${i}, ${q.ans}, '${course.name}')">Enviar</button><br><br>
+                `;
+            });
+        }
+
+        // Marcar curso como procesado
+        function markCourseAsProcessed(courseName) {
+            if (!currentUser.processedCourses.includes(courseName)) {
+                currentUser.processedCourses.push(courseName);
+                const index = users.findIndex(u => u.email === currentUser.email);
+                if (index !== -1) {
+                    users[index].processedCourses = currentUser.processedCourses;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
+        }
+
+        // Evaluar
+        function submitEval(questionIndex, correctAnswer, courseName) {
+            markCourseAsProcessed(courseName);
+
+            const radios = document.getElementsByName(`q${questionIndex}`);
+            let selectedValue = null;
+            for (let radio of radios) {
+                if (radio.checked) {
+                    selectedValue = parseInt(radio.value);
+                    break;
+                }
+            }
+
+            if (selectedValue === null) return alert('Selecciona una opción');
+
+            if (selectedValue === correctAnswer) {
+                alert('¡Correcto! +10% progreso');
+                updateProgress(10);
+            } else {
+                alert('Incorrecto.');
+            }
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('courseModal').style.display = 'none';
+            document.getElementById('modalVideo').src = '';
+        }
+
+        // Agregar curso (docente)
+        function addCourse() {
+            const name = document.getElementById('newCourseName').value.trim();
+            const desc = document.getElementById('newCourseDesc').value.trim();
+            const price = parseInt(document.getElementById('newCoursePrice').value);
+
+            if (!name || !desc || isNaN(price)) return alert('Completa los campos correctamente');
+
+            courses.push({
+                name,
+                desc,
+                price,
+                creator: currentUser.email,
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            });
+
+            localStorage.setItem('courses', JSON.stringify(courses));
+            loadCourses();
+            loadDocenteCourses();
+            alert('Curso agregado');
+        }
+
+        // Cargar cursos del docente
+        function loadDocenteCourses() {
+            const container = document.getElementById('docenteCourses');
+            container.innerHTML = '';
+            courses.forEach((c, index) => {
+                if (c.creator === currentUser.email) {
+                    const item = document.createElement('div');
+                    item.className = 'course-card';
+                    item.innerHTML = `
+                        <strong>${c.name}</strong> - $${c.price.toLocaleString('es-CO')}
+                        <button onclick="removeCourse(${index})">Quitar</button>
+                    `;
+                    container.appendChild(item);
+                }
+            });
+        }
+
+        // Quitar curso
+        function removeCourse(index) {
+            if (confirm('¿Seguro?')) {
+                courses.splice(index, 1);
+                localStorage.setItem('courses', JSON.stringify(courses));
+                loadCourses();
+                loadDocenteCourses();
+                alert('Curso eliminado');
+            }
+        }
+
+        // Mostrar Mis Cursos – SOLO cursos con progreso > 0
+        function showMyCourses() {
+            hideAllSections();
+            document.getElementById('myCoursesSection').style.display = 'block';
+
+            const list = document.getElementById('myCoursesList');
+            list.innerHTML = '';
+
+            if (currentUser.role === 'docente') {
+                const created = courses.filter(c => c.creator === currentUser.email);
+                if (created.length === 0) {
+                    list.innerHTML = '<p>No has creado cursos.</p>';
+                } else {
+                    created.forEach(c => {
+                        list.innerHTML += `<p>${c.name} (creado por ti)</p>`;
+                    });
+                }
+            } else {
+                // Estudiante: cursos con progreso > 0 y procesados
+                const progressCourses = courses.filter(c => currentUser.progress > 0 && currentUser.processedCourses.includes(c.name));
+                if (progressCourses.length === 0) {
+                    list.innerHTML = '<p>Aún no tienes progreso en ningún curso. Responde evaluaciones correctamente para que aparezcan aquí.</p>';
+                } else {
+                    progressCourses.forEach(c => {
+                        list.innerHTML += `<p>${c.name} - Progreso actual: ${currentUser.progress}%</p>`;
+                    });
+                }
+            }
+        }
+
+        // Mostrar Próximos Desarrollos
+        function showUpcoming() {
+            hideAllSections();
+            document.getElementById('upcomingSection').style.display = 'block';
+        }
+
+        // Volver a dashboard
+        function showDashboard() {
+            hideAllSections();
+            document.getElementById('progressContainer').style.display = currentUser.role === 'estudiante' ? 'block' : 'none';
+            document.getElementById('docentePanel').style.display = currentUser.role === 'docente' ? 'block' : 'none';
+            document.getElementById('adminPanel').style.display = currentUser.role === 'admin' ? 'block' : 'none';
+            document.getElementById('courses').parentElement.style.display = 'block';
+        }
+
+        // Ocultar secciones
+        function hideAllSections() {
+            document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('courses').parentElement.style.display = 'none';
+            document.getElementById('docentePanel').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('myCoursesSection').style.display = 'none';
+            document.getElementById('upcomingSection').style.display = 'none';
+        }
+
+        // Actualizar progreso
+        function updateProgress(value) {
+            currentUser.progress = Math.min(100, (currentUser.progress || 0) + value);
+            document.getElementById('progressFill').style.width = currentUser.progress + '%';
+            document.getElementById('progressFill').innerText = currentUser.progress + '%';
+
+            const index = users.findIndex(u => u.email === currentUser.email);
+            if (index !== -1) {
+                users[index].progress = currentUser.progress;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('currentUser');
+            location.reload();
+        }
+
+        // Carga inicial
+        window.onload = function() {
+            if (localStorage.getItem('currentUser')) {
+                currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                document.getElementById('auth').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('taskbar').style.display = 'block';
+                loadDashboard();
+            } else {
+                document.getElementById('auth').style.display = 'block';
+                document.getElementById('dashboard').style.display = 'none';
+                document.getElementById('taskbar').style.display = 'none';
+            }
+        };
+    </script>
+</body>
+
+</html>
