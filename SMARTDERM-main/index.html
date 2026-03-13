@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMARTDERM</title>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="course-preview.css">
+</head>
+
+<body>
+
+    <div class="menu-btn">
+        <i class="fas fa-bars fa-2x"></i>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav-main">
+            <!-- Brand -->
+            <img src="./assets/smart_derm_logo.png" alt="TechNews Logo" class="nav-brand">
+            <!-- Left Nav -->
+            <ul class="nav-menu">
+                <li>
+                    <a href="#">Inicio</a>
+                </li>
+                <li>
+                    <a href="mis-cursos.html">Mis Cursos</a>
+                </li>
+                <li>
+                    <a href="#">Próximos Desarrollos</a>
+                </li>
+                <li>
+                    <a href="#">Cursos Disponibles</a>
+                </li>
+                <li>
+                    <a href="semilleros.html">Semilleros</a>
+                </li>
+                <li>
+                    <a href="congresos.html">Congresos</a>
+                </li>
+                <li>
+                    <a href="#">Más</a>
+                </li>
+                <li>
+                    <a href="#" class="titulo">SMARTDERM</a>
+                </li>
+            </ul>
+
+            <!-- Right Nav -->
+            <ul class="nav-menu-right">
+                <li>
+                    <a href="#">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- SHOWCASE -->
+        <header class="showcase">
+            <h2>Campus Virtual SmartDerm</h2>
+            <p>Bienvenido a nuestro Campus Virtual SmartDerm, donde la educación se encuentra con la innovación médica. Explora nuestra plataforma digital diseñada para ofrecerte acceso directo a cursos de calidad, recursos educativos clínicos y herramientas
+                interactivas que enriquecen tu experiencia académica. </p>
+            <a href="#" class="btn" id="btn-login" onclick="showLogin()">Iniciar Sesión <i class="fas fa-chevron-right"></i>
+      </a>
+            <a href="mis-cursos.html" id="nav-user-info" style="display:none; align-items:center; gap:10px; background:rgba(255,255,255,0.15); padding:10px 20px; border-radius:8px; margin-top:20px; color:#218b7c; font-weight:bold; border:2px solid #00b894;">
+                <span>&#128100;</span>
+                <span id="nav-user-name"></span>
+                <span style="font-size:12px; color:#555;">— Ir a Mis Cursos</span>
+            </a>
+        </header>
+
+        <!-- NEWS CARDS -->
+        <p class="cursos">Prueba nuestros cursos</p>
+        <div class="news-cards">
+            <div>
+                <img src="./assets/introdermat.png" alt="" />
+                <h3>Introducción a la dermatología clínica</h3>
+                <p>Curso básico que presenta la anatomía y fisiología de la piel, así como los principios del diagnóstico y tratamiento de las enfermedades dermatológicas más frecuentes.
+                </p>
+                <a href="#">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="./assets/enfermedadesdelapiel.jpg" alt="" />
+                <h3>Diagnóstico de enfermedades cutáneas comunes</h3>
+                <p>Formación enfocada en identificar lesiones y síntomas característicos de patologías frecuentes como acné, dermatitis o psoriasis, utilizando métodos clínicos y herramientas diagnósticas.
+                </p>
+                <a href="#">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="./assets/dermatologia-scaled.jpg" alt="" />
+                <h3>Dermatología para atención primaria</h3>
+                <p>Curso dirigido a médicos generales y personal de salud que necesitan reconocer, evaluar y manejar problemas dermatológicos básicos en la consulta diaria.
+                </p>
+                <a href="#">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="./assets/derma-pedriatica.png" alt="" />
+                <h3>Dermatología pediátrica avanzada</h3>
+                <p>Programa especializado en el diagnóstico y tratamiento de enfermedades cutáneas en niños, incluyendo afecciones congénitas, infecciosas y dermatológicas propias de la infancia.
+                </p>
+                <a href="#">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Card Banner 1-->
+        <section class="cards-banner-one">
+            <div class="content">
+                <h2>Congresos</h2>
+
+                <p>En esta sección podrás consultar los congresos, encuentros académicos y eventos científicos relacionados con la dermatología que se realizan a través de la plataforma. Estos espacios están destinados a la actualización profesional, la
+                    difusión de avances científicos y el intercambio de conocimientos entre especialistas, investigadores y estudiantes interesados en el área dermatológica.</p>
+                <a href="congresos.html" class="btn">Más Información <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </section>
+
+        <!-- NEWS CARDS -->
+        <div class="news-cards">
+            <div>
+                <img src="./assets/cancer-en-la-piel.jpg" alt="" />
+                <h3>Tratamientos innovadores para cáncer de piel</h3>
+                <p>Curso que analiza terapias modernas para el manejo del cáncer cutáneo, como cirugía especializada, terapias dirigidas y nuevas tecnologías de diagnóstico temprano.
+                </p>
+                <a href="#">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="./assets/usofotografiasdermatologia.jpg" alt="" />
+                <h3>Fotografía dermatológica para diagnóstico</h3>
+                <p>Formación práctica sobre técnicas de fotografía médica que permiten documentar lesiones cutáneas con precisión y facilitar su seguimiento clínico y diagnóstico.
+                </p>
+                <a href="#">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="./assets/dermafacial.png" alt="" />
+                <h3>Tratamientos con láser y rellenos dérmicos</h3>
+                <p>Curso de dermatología estética que enseña el uso de tecnologías láser y sustancias de relleno para tratar arrugas, cicatrices y otros problemas cutáneos con fines médicos y estéticos.
+                </p>
+                <a href="#">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="./assets/Dermaia.png" alt="" />
+                <h3>Uso de inteligencia artificial en dermatología</h3>
+                <p>Curso que explora cómo los algoritmos de aprendizaje automático y el análisis de imágenes pueden ayudar a detectar y clasificar enfermedades de la piel con mayor precisión.
+                </p>
+                <a href="#">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+        </div>
+
+        <!-- third card -->
+        <section class="cards-banner-two">
+
+            <div class="content">
+                <h2>Semilleros</h2>
+
+                <p>En este apartado encontrarás información sobre los semilleros de investigación disponibles dentro de la plataforma. Estos espacios están orientados al desarrollo académico y científico en el área de la dermatología, permitiendo a estudiantes
+                    y profesionales participar en proyectos, fortalecer sus habilidades investigativas y colaborar con otros miembros de la comunidad dermatológica. Aquí podrás conocer las líneas de investigación, actividades y oportunidades de participación
+                    en cada semillero.</p>
+                <a href="semilleros.html" class="btn">Más Información <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </section>
+        <!-- Cursos Destacados -->
+        <section class="cursos-destacados">
+            <h2 class="section-title">Cursos Destacados</h2>
+            <div class="cursos-grid">
+                <!-- Curso 1 -->
+                <div class="curso-card" data-curso-id="1">
+                    <img src="./assets/introdermat.png" alt="Curso 1">
+                    <h3>Introducción a la dermatología clínica</h3>
+                    <p>Conceptos básicos de anatomía y fisiología de la piel.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="btn-ver-curso" onclick="showCoursePreview(1)">Ver curso</button>
+                </div>
+                <!-- Curso 2 -->
+                <div class="curso-card" data-curso-id="2">
+                    <img src="./assets/enfermedadesdelapiel.jpg" alt="Curso 2">
+                    <h3>Diagnóstico de enfermedades cutáneas comunes</h3>
+                    <p>Identificación de lesiones y síntomas característicos.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="btn-ver-curso" onclick="showCoursePreview(2)">Ver curso</button>
+                </div>
+                <!-- Curso 3 -->
+                <div class="curso-card" data-curso-id="3">
+                    <img src="./assets/dermatologia-scaled.jpg" alt="Curso 3">
+                    <h3>Dermatología para atención primaria</h3>
+                    <p>Manejo de problemas dermatológicos básicos en consulta diaria.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="btn-ver-curso" onclick="showCoursePreview(3)">Ver curso</button>
+                </div>
+                <!-- Curso 4 -->
+                <div class="curso-card" data-curso-id="4">
+                    <img src="./assets/derma-pedriatica.png" alt="Curso 4">
+                    <h3>Dermatología pediátrica avanzada</h3>
+                    <p>Enfermedades cutáneas en niños, afecciones congénitas.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="btn-ver-curso" onclick="showCoursePreview(4)">Ver curso</button>
+                </div>
+            </div>
+        </section>
+        <!-- Dashboard placeholder (rendered outside container) -->
+
+        <section id="mis-cursos-section" style="display: none; padding: 40px 20px; background: #f9f9f9; border-radius: 20px; margin: 40px 0;">
+            <div class="dashboard-header">
+                <h2>Mis Cursos Inscritos</h2>
+                <button onclick="logout()" class="btn-logout">Cerrar sesión</button>
+            </div>
+            <div id="mis-cursos-grid" class="cursos-grid">
+                <!-- Los cursos se cargan aquí con JavaScript -->
+            </div>
+        </section>
+
+        <!-- Modal para evaluación (simulado) -->
+        <div id="evalModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3>Evaluación del curso</h3>
+                <div id="eval-questions">
+                    <p>Pregunta 1: ¿Cuál es la capa más externa de la piel?</p>
+                    <input type="radio" name="q1" value="epidermis"> Epidermis<br>
+                    <input type="radio" name="q1" value="dermis"> Dermis<br>
+                    <input type="radio" name="q1" value="hipodermis"> Hipodermis<br>
+                    <p>Pregunta 2: ¿Qué célula produce melanina?</p>
+                    <input type="radio" name="q2" value="queratinocito"> Queratinocito<br>
+                    <input type="radio" name="q2" value="melanocito"> Melanocito<br>
+                    <input type="radio" name="q2" value="fibroblasto"> Fibroblasto<br>
+                </div>
+                <button onclick="submitEval()">Enviar respuestas</button>
+            </div>
+        </div>
+
+        <!-- Modal para certificado -->
+        <div id="certModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeCertModal()">&times;</span>
+                <h3>¡Felicidades!</h3>
+                <p>Has completado el curso <span id="cert-curso-nombre"></span></p>
+                <div class="certificado-mini">
+                    <p>SmartDerm certifica que has aprobado el curso.</p>
+                    <button onclick="downloadCertificate()">Descargar certificado</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <div class="footer-container">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <h3>Title One</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Blockchain</a>
+                    </li>
+                    <li>
+                        <a href="#">Machine Learning</a>
+                    </li>
+                    <li>
+                        <a href="#">Artificial Intelligence</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <h3>Title Two</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Blockchain</a>
+                    </li>
+                    <li>
+                        <a href="#">Machine Learning</a>
+                    </li>
+                    <li>
+                        <a href="#">Artificial Intelligence</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <h3>Title Three</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Blockchain</a>
+                    </li>
+                    <li>
+                        <a href="#">Machine Learning</a>
+                    </li>
+                    <li>
+                        <a href="#">Artificial Intelligence</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <h3>Title Four</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Blockchain</a>
+                    </li>
+                    <li>
+                        <a href="#">Machine Learning</a>
+                    </li>
+                    <li>
+                        <a href="#">Artificial Intelligence</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>SMARTDERM Copyright</h3>
+        </footer>
+
+    </div>
+    <!-- Cierre del .container -->
+
+    <!-- Dashboard de Usuario (fuera del container, pantalla completa) -->
+    <!-- Modal de preview de curso: video introductorio, metadatos, temario e inscripción -->
+    <div id="coursePreviewModal" style="display:none;">
+        <div class="preview-modal-content">
+
+            <div class="preview-header">
+                <h3 id="preview-title">Título del Curso</h3>
+                <button class="preview-close-btn" onclick="closePreviewModal()">&times;</button>
+            </div>
+
+            <div class="preview-body">
+
+                <!-- Columna izquierda: video, metadatos y descripción -->
+                <div class="preview-left">
+
+                    <div class="video-wrapper" id="preview-video-wrapper">
+                        <div class="video-placeholder">
+                            <div class="play-icon">▶</div>
+                            <p>Cargando video...</p>
+                        </div>
+                    </div>
+
+                    <div class="preview-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">⏱️</span>
+                            <div class="meta-text">
+                                <strong id="preview-duracion">—</strong>
+                                <span>Duración total</span>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📊</span>
+                            <div class="meta-text">
+                                <strong id="preview-nivel">—</strong>
+                                <span>Nivel</span>
+                            </div>
+                        </div>
+                        <div class="meta-item" style="grid-column: span 2;">
+                            <span class="meta-icon">👩‍⚕️</span>
+                            <div class="meta-text">
+                                <strong id="preview-instructor">—</strong>
+                                <span>Instructor</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="preview-description" id="preview-description"></p>
+
+                </div>
+
+                <!-- Columna derecha: temario e inscripción -->
+                <div class="preview-right">
+
+                    <p class="preview-section-title">Contenido del curso</p>
+                    <ul class="temario-list" id="preview-temario"></ul>
+
+                    <div class="preview-actions">
+                        <button class="btn-inscribirse" onclick="enrollFromPreview()">
+                            ✅ Inscribirme al Curso
+                        </button>
+                        <button class="btn-cancelar" onclick="closePreviewModal()">
+                            Cancelar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dashboard" style="display: none;">
+        <div class="dashboard-header">
+            <h2>Mis Cursos</h2>
+            <button onclick="logout()" class="btn-logout">Cerrar sesión</button>
+        </div>
+        <div id="mis-cursos-grid" class="cursos-grid">
+            <!-- Los cursos se cargarán dinámicamente con JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal de Login/Registro (fuera del container, como overlay global) -->
+    <section id="auth" style="display: none;">
+        <div id="loginForm" style="display: none;">
+            <h2 class="titulosesion">Iniciar Sesión</h2>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <select id="role">
+                <option value="estudiante">Estudiante</option>
+                <option value="docente">Docente</option>
+                <option value="admin">Administrador</option>
+            </select>
+            <button onclick="login()">Ingresar</button>
+            <button onclick="loginWithGoogle()" class="btn-google">Iniciar sesión con Google</button>
+            <p class="registrarse">¿Nuevo? <a href="#" onclick="toggleRegister()" class="registrate">Regístrate</a></p>
+        </div>
+
+        <div id="registerForm" style="display: none;">
+            <h2 class="titulosesion">Registro</h2>
+            <input type="text" id="name" placeholder="Nombre completo" required>
+            <input type="email" id="regEmail" placeholder="Email" required>
+            <input type="password" id="regPassword" placeholder="Contraseña" required>
+            <select id="regRole">
+                <option value="estudiante">Estudiante</option>
+                <option value="docente">Docente</option>
+            </select>
+            <button onclick="register()">Registrar</button>
+            <p><a href="#" onclick="toggleRegister()" class="registrate">Volver a login</a></p>
+        </div>
+    </section>
+
+    <!-- Scripts al final del body, fuera de cualquier div -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

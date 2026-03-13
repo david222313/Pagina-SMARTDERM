@@ -1,0 +1,157 @@
+body{
+font-family: 'Oswald', sans-serif;
+background:#f4f4f4;
+margin:0;
+}
+
+.congreso-container{
+max-width:1100px;
+margin:auto;
+padding:60px 30px;
+}
+
+.congreso-title{
+text-align:center;
+font-size:40px;
+margin-bottom:20px;
+}
+
+.congreso-text{
+text-align:center;
+color:#555;
+margin-bottom:50px;
+font-size:18px;
+}
+
+.congreso-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+}
+
+.congreso-card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+.congreso-card:hover{
+transform:translateY(-6px);
+}
+
+.congreso-card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.congreso-content{
+padding:20px;
+}
+
+.congreso-content h3{
+margin-bottom:10px;
+}
+
+.congreso-content p{
+color:#666;
+}
+
+.volver{
+display:inline-block;
+margin-top:40px;
+padding:12px 20px;
+background:#00b894;
+color:white;
+text-decoration:none;
+border-radius:6px;
+}
+
+.congresos{
+padding: 20px 60px 60px 60px;
+max-width:1200px;
+margin:auto;
+
+}
+
+.titulo{
+color: #00b894;
+text-align:center;
+font-size:40px;
+margin-bottom:40px;
+
+}
+
+.congreso-grid{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+
+}
+
+.congreso-card{
+
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
+text-align:center;
+transition:0.3s;
+
+}
+
+.congreso-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.congreso-card img{
+
+width:100%;
+height:200px;
+object-fit:cover;
+
+}
+
+.congreso-card h3{
+
+margin:15px;
+
+}
+
+.congreso-card p{
+
+padding:0 20px 20px 20px;
+
+}
+
+.congreso-card button{
+
+background:#00b894;
+border:none;
+padding:10px 20px;
+color:white;
+margin-bottom:20px;
+cursor:pointer;
+border-radius:5px;
+
+}
+
+.btn-volver{
+background:#00b894;
+border:none;
+padding:10px 20px;
+color:white;
+margin-bottom:20px;
+cursor:pointer;
+border-radius:5px;
+display: flex;
+justify-content: center;
+width: 150px;
+margin: auto;
+margin-bottom: 40px;
+}
