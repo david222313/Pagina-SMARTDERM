@@ -8,7 +8,7 @@ let currentEvalCourse = null;
 const CURSOS_INFO = {
     1: {
         nombre: "Introducción a la dermatología clínica",
-        img: "./assets/introdermat.png",
+        img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80",
         descripcion: "Curso base que presenta la anatomía y fisiología de la piel, los principios del diagnóstico clínico y el tratamiento de las enfermedades dermatológicas más frecuentes en la práctica médica.",
         duracion: "8 horas",
         nivel: "Básico",
@@ -25,7 +25,7 @@ const CURSOS_INFO = {
     },
     2: {
         nombre: "Diagnóstico de enfermedades cutáneas comunes",
-        img: "./assets/enfermedadesdelapiel.jpg",
+        img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80",
         descripcion: "Formación enfocada en identificar lesiones y síntomas característicos de patologías frecuentes como acné, dermatitis, psoriasis y micosis superficiales, utilizando métodos clínicos y herramientas diagnósticas actualizadas.",
         duracion: "12 horas",
         nivel: "Intermedio",
@@ -43,7 +43,7 @@ const CURSOS_INFO = {
     },
     3: {
         nombre: "Dermatología para atención primaria",
-        img: "./assets/dermatologia-scaled.jpg",
+        img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80",
         descripcion: "Curso dirigido a médicos generales y personal de salud que necesitan reconocer, evaluar y manejar problemas dermatológicos básicos en la consulta diaria, con énfasis en criterios de derivación al especialista.",
         duracion: "10 horas",
         nivel: "Básico",
@@ -60,7 +60,7 @@ const CURSOS_INFO = {
     },
     4: {
         nombre: "Dermatología pediátrica avanzada",
-        img: "./assets/derma-pedriatica.png",
+        img: "https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=600&q=80",
         descripcion: "Programa especializado en el diagnóstico y tratamiento de enfermedades cutáneas en niños, incluyendo afecciones congénitas, infecciosas, inflamatorias y genodermatosis propias de la etapa pediátrica.",
         duracion: "15 horas",
         nivel: "Avanzado",
@@ -245,13 +245,13 @@ function renderMisCursos() {
                 ${prog >= 100 ? `<button onclick="showCertificate(${id})" style="margin-top:6px;">Ver certificado</button>` : ''}
             </div>`;
     }
-
+ 
     if (!html) {
         html = '<p style="color:#555;padding:20px;">No estás inscrito en ningún curso. Vuelve al inicio y usa "Cursos Destacados" para inscribirte.</p>';
     }
     grid.innerHTML = html;
 }
-
+ 
 // Abre el modal de evaluación para el curso indicado
 function startEval(cursoId) {
     if (userCourses[cursoId].progress >= 100) {
@@ -261,7 +261,7 @@ function startEval(cursoId) {
     currentEvalCourse = cursoId;
     document.getElementById("evalModal").style.display = "flex";
 }
-
+ 
 // Procesa el envío de la evaluación, marca el curso como completado y actualiza el grid
 function submitEval() {
     alert("¡Evaluación aprobada! Has completado el curso.");
@@ -273,32 +273,32 @@ function submitEval() {
     }
     closeModal();
 }
-
+ 
 // Cierra el modal de evaluación
 function closeModal() {
     document.getElementById("evalModal").style.display = "none";
 }
-
+ 
 // Muestra el modal del certificado con el nombre del curso completado
 function showCertificate(cursoId) {
     document.getElementById("cert-curso-nombre").innerText = CURSOS_INFO[cursoId]?.nombre || "Curso";
     document.getElementById("certModal").style.display = "flex";
 }
-
+ 
 // Cierra el modal del certificado
 function closeCertModal() {
     document.getElementById("certModal").style.display = "none";
 }
-
+ 
 // Simula la descarga del certificado en PDF
 function downloadCertificate() {
     alert("Descargando certificado... (simulado)");
 }
-
+ 
 // Inicialización al cargar el DOM según la página activa
 window.onload = function () {
     loadUserData();
-
+ 
     if (EN_MIS_CURSOS) {
         if (!currentUser) {
             window.location.href = "index.html";
@@ -312,14 +312,14 @@ window.onload = function () {
         actualizarNavbarIndex();
     }
 };
-
+ 
 // Actualiza la navbar del index según el estado de autenticación:
 // si hay sesión activa oculta "Iniciar Sesión" y muestra el nombre del usuario
 function actualizarNavbarIndex() {
     const btnLogin = document.getElementById("btn-login");
     const navUser  = document.getElementById("nav-user-info");
     if (!btnLogin) return;
-
+ 
     if (currentUser) {
         btnLogin.style.display = "none";
         if (navUser) {
