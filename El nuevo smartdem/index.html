@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMARTDERM</title>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="course-preview.css">
+</head>
+
+<body>
+
+    <div class="menu-btn"><i class="fas fa-bars fa-2x"></i></div>
+    <nav class="nav-main">
+        <img src="data:image/jpeg;base64,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" alt="SmartDerm" class="nav-brand">
+        <ul class="nav-menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="mis-cursos.html">Mis Cursos</a></li>
+            <li><a href="proximos-desarrollos.html">Próximos Desarrollos</a></li>
+            <li><a href="cursos-disponibles.html">Cursos Disponibles</a></li>
+            <li><a href="semilleros.html">Semilleros</a></li>
+            <li><a href="congresos.html">Congresos</a></li>
+            <li><a href="contacto.html">Más</a></li>
+        </ul>
+        <ul class="nav-menu-right">
+            <li id="btn-login-nav"><a href="#" onclick="typeof showLogin!=='undefined'?showLogin():window.location.href='index.html'" style="color:white;"><i class="fas fa-user"></i> Sesión</a></li>
+            <li id="nav-user-info-nav" style="display:none;"><a href="mis-cursos.html" style="color:white;"><i class="fas fa-user-circle"></i> <span id="nav-user-name-nav"></span></a> <a href="#" onclick="logout()" style="background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:5px;color:white;font-size:13px;margin-left:6px;">Salir</a></li>
+        </ul>
+    </nav>
+
+        <!-- SHOWCASE -->
+        <header class="showcase">
+            <h2>Campus Virtual SmartDerm</h2>
+            <p>Bienvenido a nuestro Campus Virtual SmartDerm, donde la educación se encuentra con la innovación médica. Explora nuestra plataforma digital diseñada para ofrecerte acceso directo a cursos de calidad, recursos educativos clínicos y herramientas
+                interactivas que enriquecen tu experiencia académica. </p>
+            <a href="#" class="btn" id="btn-login" onclick="showLogin()">Iniciar Sesión <i class="fas fa-chevron-right"></i>
+      </a>
+            <a href="mis-cursos.html" id="nav-user-info" style="display:none; align-items:center; gap:10px; background:rgba(255,255,255,0.15); padding:10px 20px; border-radius:8px; margin-top:20px; color:#218b7c; font-weight:bold; border:2px solid #00b894;">
+                <span>&#128100;</span>
+                <span id="nav-user-name"></span>
+                <span style="font-size:12px; color:#555; margin-left:4px;">— Ir a Mis Cursos</span>
+            </a>
+        </header>
+
+        <!-- NEWS CARDS -->
+        <p class="cursos">Prueba nuestros cursos</p>
+        <div class="news-cards">
+            <div>
+                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80" alt="" />
+                <h3>Introducción a la dermatología clínica</h3>
+                <p>Curso básico que presenta la anatomía y fisiología de la piel, así como los principios del diagnóstico y tratamiento de las enfermedades dermatológicas más frecuentes.
+                </p>
+                <a href="javascript:void(0)" onclick="showCoursePreview(1)">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80" alt="" />
+                <h3>Diagnóstico dse enfermedades cutáneas comunes</h3>
+                <p>Formación enfocada en identificar lesiones y síntomas característicos de patologías frecuentes como acné, dermatitis o psoriasis, utilizando métodos clínicos y herramientas diagnósticas.
+                </p>
+                <a href="javascript:void(0)" onclick="showCoursePreview(2)">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80" alt="" />
+                <h3>Dermatología para atención primaria</h3>
+                <p>Curso dirigido a médicos generales y personal de salud que necesitan reconocer, evaluar y manejar problemas dermatológicos básicos en la consulta diaria.
+                </p>
+                <a href="javascript:void(0)" onclick="showCoursePreview(3)">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=600&q=80" alt="" />
+                <h3>Dermatología pediátrica avanzada</h3>
+                <p>Programa especializado en el diagnóstico y tratamiento de enfermedades cutáneas en niños, incluyendo afecciones congénitas, infecciosas y dermatológicas propias de la infancia.
+                </p>
+                <a href="javascript:void(0)" onclick="showCoursePreview(4)">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Card Banner 1-->
+        <section class="cards-banner-one">
+            <div class="content">
+                <h2>Congresos</h2>
+
+                <p>En esta sección podrás consultar los congresos, encuentros académicos y eventos científicos relacionados con la dermatología que se realizan a través de la plataforma. Estos espacios están destinados a la actualización profesional, la
+                    difusión de avances científicos y el intercambio de conocimientos entre especialistas, investigadores y estudiantes interesados en el área dermatológica.</p>
+                <a href="congresos.html" class="btn">Más Información <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </section>
+
+        <!-- NEWS CARDS -->
+        <div class="news-cards">
+            <div>
+                <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80" alt="" />
+                <h3>Tratamientos innovadores para cáncer de piel</h3>
+                <p>Curso que analiza terapias modernas para el manejo del cáncer cutáneo, como cirugía especializada, terapias dirigidas y nuevas tecnologías de diagnóstico temprano.
+                </p>
+                <a href="javascript:void(0)" onclick="showCoursePreview(1)">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=600&q=80" alt="" />
+                <h3>Fotografía dermatológica para diagnóstico</h3>
+                <p>Formación práctica sobre técnicas de fotografía médica que permiten documentar lesiones cutáneas con precisión y facilitar su seguimiento clínico y diagnóstico.
+                </p>
+                <a href="javascript:void(0)" onclick="showCoursePreview(2)">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="" />
+                <h3>Tratamientos con láser y rellenos dérmicos</h3>
+                <p>Curso de dermatología estética que enseña el uso de tecnologías láser y sustancias de relleno para tratar arrugas, cicatrices y otros problemas cutáneos con fines médicos y estéticos.
+                </p>
+                <a href="javascript:void(0)" onclick="showCoursePreview(3)">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80" alt="" />
+                <h3>Uso de inteligencia artificial en dermatología</h3>
+                <p>Curso que explora cómo los algoritmos de aprendizaje automático y el análisis de imágenes pueden ayudar a detectar y clasificar enfermedades de la piel con mayor precisión.
+                </p>
+                <a href="javascript:void(0)" onclick="showCoursePreview(4)">Ver Más <i class="fas fa-angle-double-right"></i></a>
+            </div>
+        </div>
+
+        <!-- third card -->
+        <section class="cards-banner-two">
+
+            <div class="content">
+                <h2>Semilleros</h2>
+
+                <p>En este apartado encontrarás información sobre los semilleros de investigación disponibles dentro de la plataforma. Estos espacios están orientados al desarrollo académico y científico en el área de la dermatología, permitiendo a estudiantes
+                    y profesionales participar en proyectos, fortalecer sus habilidades investigativas y colaborar con otros miembros de la comunidad dermatológica. Aquí podrás conocer las líneas de investigación, actividades y oportunidades de participación
+                    en cada semillero.</p>
+                <a href="semilleros.html" class="btn">Más Información <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </section>
+        <!-- Cursos Destacados -->
+        <section class="cursos-destacados">
+            <h2 class="section-title">Cursos Destacados</h2>
+            <div class="cursos-grid">
+                <!-- Curso 1 -->
+                <div class="curso-card" data-curso-id="1">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80" alt="Introducción dermatología">
+                    <h3>Introducción a la dermatología clínica</h3>
+                    <p>Conceptos básicos de anatomía y fisiología de la piel.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="btn-ver-curso" onclick="showCoursePreview(1)">Ver curso</button>
+                </div>
+                <!-- Curso 2 -->
+                <div class="curso-card" data-curso-id="2">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80" alt="Diagnóstico cutáneo">
+                    <h3>Diagnóstico de enfermedades cutáneas comunes</h3>
+                    <p>Identificación de lesiones y síntomas característicos.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="btn-ver-curso" onclick="showCoursePreview(2)">Ver curso</button>
+                </div>
+                <!-- Curso 3 -->
+                <div class="curso-card" data-curso-id="3">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80" alt="Atención primaria">
+                    <h3>Dermatología para atención primaria</h3>
+                    <p>Manejo de problemas dermatológicos básicos en consulta diaria.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="btn-ver-curso" onclick="showCoursePreview(3)">Ver curso</button>
+                </div>
+                <!-- Curso 4 -->
+                <div class="curso-card" data-curso-id="4">
+                    <img src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=600&q=80" alt="Dermatología pediátrica">
+                    <h3>Dermatología pediátrica avanzada</h3>
+                    <p>Enfermedades cutáneas en niños, afecciones congénitas.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="btn-ver-curso" onclick="showCoursePreview(4)">Ver curso</button>
+                </div>
+            </div>
+        </section>
+        <!-- Dashboard placeholder (rendered outside container) -->
+
+        <section id="mis-cursos-section" style="display: none; padding: 40px 20px; background: #f9f9f9; border-radius: 20px; margin: 40px 0;">
+            <div class="dashboard-header">
+                <h2>Mis Cursos Inscritos</h2>
+                <button onclick="logout()" class="btn-logout">Cerrar sesión</button>
+            </div>
+            <div id="mis-cursos-grid" class="cursos-grid">
+                <!-- Los cursos se cargan aquí con JavaScript -->
+            </div>
+        </section>
+
+        <!-- Modal para evaluación (simulado) -->
+        <div id="evalModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3>Evaluación del curso</h3>
+                <div id="eval-questions">
+                    <p>Pregunta 1: ¿Cuál es la capa más externa de la piel?</p>
+                    <input type="radio" name="q1" value="epidermis"> Epidermis<br>
+                    <input type="radio" name="q1" value="dermis"> Dermis<br>
+                    <input type="radio" name="q1" value="hipodermis"> Hipodermis<br>
+                    <p>Pregunta 2: ¿Qué célula produce melanina?</p>
+                    <input type="radio" name="q2" value="queratinocito"> Queratinocito<br>
+                    <input type="radio" name="q2" value="melanocito"> Melanocito<br>
+                    <input type="radio" name="q2" value="fibroblasto"> Fibroblasto<br>
+                </div>
+                <button onclick="submitEval()">Enviar respuestas</button>
+            </div>
+        </div>
+
+        <!-- Modal para certificado -->
+        <div id="certModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeCertModal()">&times;</span>
+                <h3>¡Felicidades!</h3>
+                <p>Has completado el curso <span id="cert-curso-nombre"></span></p>
+                <div class="certificado-mini">
+                    <p>SmartDerm certifica que has aprobado el curso.</p>
+                    <button onclick="downloadCertificate()">Descargar certificado</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <div class="footer-container">
+                <ul>
+                    <li><a href="#"><h3>SmartDerm</h3></a></li>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="semilleros.html">Semilleros</a></li>
+                    <li><a href="congresos.html">Congresos</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#"><h3>Cursos</h3></a></li>
+                    <li><a href="cursos-disponibles.html">Cursos Disponibles</a></li>
+                    <li><a href="mis-cursos.html">Mis Cursos</a></li>
+                    <li><a href="proximos-desarrollos.html">Próximos Desarrollos</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#"><h3>Legal</h3></a></li>
+                    <li><a href="terminos.html">Términos y condiciones</a></li>
+                    <li><a href="privacidad.html">Política de privacidad</a></li>
+                    <li><a href="cookies.html">Política de cookies</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#"><h3>Contacto</h3></a></li>
+                    <li><a href="contacto.html">info@smartderm.com</a></li>
+                    <li><a href="#">+57 300 000 0000</a></li>
+                    <li><a href="#">Bogotá, Colombia</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>SMARTDERM Copyright</h3>
+        </footer>
+
+    </div>
+    <!-- Cierre del .container -->
+
+    <!-- Dashboard de Usuario (fuera del container, pantalla completa) -->
+    <!-- === MODAL PREVIEW COMPLETO === -->
+    <div id="coursePreviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:4000; padding:20px; backdrop-filter:blur(4px);">
+        <div class="preview-modal-content">
+            <div class="preview-header">
+                <h3 id="preview-title">Título del Curso</h3>
+                <button class="preview-close-btn" onclick="closePreviewModal()">&times;</button>
+            </div>
+            <div class="preview-body">
+                <div class="preview-left">
+                    <div class="video-wrapper" id="preview-video-wrapper">
+                        <div class="video-placeholder">
+                            <div class="play-icon">&#9654;</div>
+                            <p>Cargando video...</p>
+                        </div>
+                    </div>
+                    <div class="preview-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">&#9201;</span>
+                            <div class="meta-text">
+                                <strong id="preview-duracion">—</strong>
+                                <span>Duración total</span>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">&#128202;</span>
+                            <div class="meta-text">
+                                <strong id="preview-nivel">—</strong>
+                                <span>Nivel</span>
+                            </div>
+                        </div>
+                        <div class="meta-item" style="grid-column: span 2;">
+                            <span class="meta-icon">&#128105;&#8205;&#9877;</span>
+                            <div class="meta-text">
+                                <strong id="preview-instructor">—</strong>
+                                <span>Instructor</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="preview-progress"></div>
+                    <p class="preview-description" id="preview-description"></p>
+                </div>
+                <div class="preview-right">
+                    <p class="preview-section-title">Contenido del curso</p>
+                    <ul class="temario-list" id="preview-temario"></ul>
+                    <div class="preview-actions">
+                        <button class="btn-inscribirse" onclick="enrollFromPreview()">Inscribirme al Curso</button>
+                        <button class="btn-cancelar" onclick="closePreviewModal()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dashboard" style="display: none;">
+        <div class="dashboard-header">
+            <h2>Mis Cursos</h2>
+            <button onclick="logout()" class="btn-logout">Cerrar sesión</button>
+        </div>
+        <div id="mis-cursos-grid" class="cursos-grid">
+            <!-- Los cursos se cargarán dinámicamente con JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal de Login/Registro (fuera del container, como overlay global) -->
+    <section id="auth" style="display: none;">
+        <div id="loginForm" style="display: none;">
+            <button onclick="document.getElementById('auth').style.display='none'" style="float:right;background:none;border:none;font-size:24px;cursor:pointer;color:#999;">&times;</button>
+            <h2 class="titulosesion">Iniciar Sesión</h2>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <select id="role">
+                <option value="estudiante">Estudiante</option>
+                <option value="docente">Docente</option>
+                <option value="admin">Administrador</option>
+            </select>
+            <button onclick="login()">Ingresar</button>
+            <button onclick="loginWithGoogle()" class="btn-google">Iniciar sesión con Google</button>
+            <p class="registrarse">¿Nuevo? <a href="#" onclick="toggleRegister()" class="registrate">Regístrate</a></p>
+        </div>
+
+        <div id="registerForm" style="display: none;">
+            <h2 class="titulosesion">Registro</h2>
+            <input type="text" id="name" placeholder="Nombre completo" required>
+            <input type="email" id="regEmail" placeholder="Email" required>
+            <input type="password" id="regPassword" placeholder="Contraseña" required>
+            <select id="regRole">
+                <option value="estudiante">Estudiante</option>
+                <option value="docente">Docente</option>
+            </select>
+            <button onclick="register()">Registrar</button>
+            <p><a href="#" onclick="toggleRegister()" class="registrate">Volver a login</a></p>
+        </div>
+    </section>
+
+    <!-- Scripts al final del body, fuera de cualquier div -->
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Update progress bars in cursos-destacados based on user session
+    var stored = localStorage.getItem('smartderm_user');
+    if (stored) {
+        var data = JSON.parse(stored);
+        var courses = data.courses || {};
+        document.querySelectorAll('.curso-card[data-curso-id]').forEach(function(card) {
+            var id = card.getAttribute('data-curso-id');
+            if (courses[id]) {
+                var prog = courses[id].progress || 0;
+                var bar = card.querySelector('.progress-bar');
+                var container = card.querySelector('.progress-bar-container');
+                if (bar) { bar.style.width = prog + '%'; bar.textContent = prog + '%'; }
+            }
+        });
+    }
+});
+</script>
+<script>document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll("img").forEach(function(img){img.onerror=function(){this.src="https://placehold.co/600x400/e0f2f1/00897b?text=SmartDerm";this.onerror=null;};});});</script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
