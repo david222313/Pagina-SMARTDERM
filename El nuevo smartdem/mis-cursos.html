@@ -107,25 +107,27 @@
         </div>
     </div>
 
-    <!-- Modal de evaluación del curso con preguntas de opción múltiple -->
-    <div id="evalModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Evaluación del curso</h3>
-            <div id="eval-questions">
-                <p>Pregunta 1: ¿Cuál es la capa más externa de la piel?</p>
-                <input type="radio" name="q1" value="epidermis"> Epidermis<br>
-                <input type="radio" name="q1" value="dermis"> Dermis<br>
-                <input type="radio" name="q1" value="hipodermis"> Hipodermis<br>
-                <p style="margin-top:15px;">Pregunta 2: ¿Qué célula produce melanina?</p>
-                <input type="radio" name="q2" value="queratinocito"> Queratinocito<br>
-                <input type="radio" name="q2" value="melanocito"> Melanocito<br>
-                <input type="radio" name="q2" value="fibroblasto"> Fibroblasto<br>
+   <!-- Modal de evaluación  -->
+<div id="evalModal" class="modal" style="display:none;">
+    <div class="preview-modal-content" style="max-width: 800px;">
+        <div class="preview-header">
+            <h3 id="eval-title">Evaluación del curso</h3>
+            <button class="preview-close-btn" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="preview-body" style="grid-template-columns: 1fr; padding: 0;">
+            <div style="padding: 25px 30px;">
+                <p id="eval-instruction" style="color: #00897b; margin-bottom: 20px; font-weight: 500;">Responde cada pregunta según el contenido del curso.</p>
+                <div id="eval-questions-container" style="display: flex; flex-direction: column; gap: 25px;">
+                    <!-- Las preguntas se generarán dinámicamente con JavaScript -->
+                </div>
+                <div class="preview-actions" style="margin-top: 30px; flex-direction: row; justify-content: flex-end;">
+                    <button class="btn-cancelar" onclick="closeModal()" style="width: auto; padding: 10px 20px;">Cancelar</button>
+                    <button class="btn-inscribirse" onclick="submitEval()" style="width: auto; padding: 10px 28px;">Enviar respuestas</button>
+                </div>
             </div>
-            <button onclick="submitEval()" style="margin-top:20px;">Enviar respuestas</button>
         </div>
     </div>
-
+</div>
     <!-- Modal de certificado para cursos completados al 100% -->
     <div id="certModal" class="modal" style="display:none;">
         <div class="modal-content">

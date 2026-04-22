@@ -402,3 +402,110 @@ const EVAL_ANSWERS = {
     3: { q1: 'epidermis', q2: 'melanocito' },
     4: { q1: 'epidermis', q2: 'melanocito' },
 };
+// --- NUEVA FUNCIÓN: Genera preguntas por módulo para un curso ---
+function generateQuestionsForCourse(cursoId) {
+    const curso = CURSOS_INFO[cursoId];
+    if (!curso) return [];
+    
+    // Para cada módulo, crear una pregunta de opción múltiple
+    // La respuesta correcta es siempre la primera opción (relacionada con el módulo)
+    const questions = curso.temario.map((modulo, idx) => {
+        const moduleTitle = modulo;
+        // Generar opciones: una correcta basada en el módulo y dos incorrectas genéricas
+        const correctAnswer = `Comprender los fundamentos de ${moduleTitle.toLowerCase()}`;
+        const wrongAnswers = [
+            `Ignorar completamente ${moduleTitle.toLowerCase()}`,
+            `Aplicar técnicas no validadas en ${moduleTitle.toLowerCase()}`
+        ];
+        // Mezclar opciones para que la correcta no sea siempre la primera
+        const options = [correctAnswer, ...wrongAnswers];
+        for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+        }
+        return {
+            text: `Pregunta ${idx+1}: ¿Cuál es el principal objetivo del módulo "${moduleTitle}"?`,
+            options: options,
+            correct: correctAnswer
+        };
+    });
+    return questions;
+}
+
+// --- MODIFICAR startEval: genera dinámicamente las preguntas ---
+function startEval(cursoId) {
+    if (userCourses[cursoId].progress >= 100) {
+        alert("Ya completaste este curso.");
+        return;
+    }
+    currentEvalCourse = cursoId;
+    const questions = generateQuestionsForCourse(cursoId);
+    if (!questions.length) {
+        alert("No hay preguntas disponibles para este curso.");
+        return;
+    }
+    
+    // Guardar las preguntas en una variable global temporal
+    window.currentEvalQuestions = questions;
+    
+    // Construir el HTML del formulario
+    const container = document.getElementById("eval-questions-container");
+    const titleEl = document.getElementById("eval-title");
+    titleEl.textContent = `Evaluación: ${CURSOS_INFO[cursoId].nombre}`;
+    
+    let html = '';
+    questions.forEach((q, idx) => {
+        html += `
+            <div style="background: #f9f9f9; border-radius: 12px; padding: 15px 20px; border-left: 4px solid #00b894;">
+                <p style="font-weight: 600; margin-bottom: 12px; color: #1e2a36;">${q.text}</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    ${q.options.map(opt => `
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; color: #555;">
+                            <input type="radio" name="q_${idx}" value="${opt.replace(/"/g, '&quot;')}" style="width: 16px; height: 16px; margin: 0;">
+                            ${opt}
+                        </label>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+    
+    document.getElementById("evalModal").style.display = "flex";
+}
+
+// --- MODIFICAR submitEval: evaluar todas las preguntas ---
+function submitEval() {
+    if (!currentEvalCourse || !window.currentEvalQuestions) return;
+    
+    const questions = window.currentEvalQuestions;
+    let allCorrect = true;
+    
+    for (let i = 0; i < questions.length; i++) {
+        const selected = document.querySelector(`input[name="q_${i}"]:checked`);
+        if (!selected) {
+            alert(`Por favor responde la pregunta ${i+1}.`);
+            return;
+        }
+        if (selected.value !== questions[i].correct) {
+            allCorrect = false;
+            break;
+        }
+    }
+    
+    if (!allCorrect) {
+        alert("❌ Respuestas incorrectas. Revisa el contenido del curso e intenta nuevamente.");
+        return;
+    }
+    
+    alert("✅ ¡Evaluación aprobada! Has completado el curso.");
+    if (currentEvalCourse) {
+        userCourses[currentEvalCourse].progress = 100;
+        userCourses[currentEvalCourse].completed = true;
+        saveUserData();
+        renderMisCursos();
+    }
+    closeModal();
+    // Limpiar variables temporales
+    delete window.currentEvalQuestions;
+}
