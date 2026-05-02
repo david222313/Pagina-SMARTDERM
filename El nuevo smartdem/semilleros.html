@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semilleros - SmartDerm</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="semilleros.css">
+</head>
+<body>
+
+<div class="menu-btn"><i class="fas fa-bars fa-2x"></i></div>
+
+<nav class="nav-main">
+    <img src="data:image/jpeg;base64,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" alt="SmartDerm" class="nav-brand">
+    <ul class="nav-menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="mis-cursos.html">Mis Cursos</a></li>
+        <li><a href="proximos-desarrollos.html">Próximos Desarrollos</a></li>
+        <li><a href="cursos-disponibles.html">Cursos Disponibles</a></li>
+        <li><a href="semilleros.html">Semilleros</a></li>
+        <li><a href="congresos.html">Congresos</a></li>
+        <li><a href="contacto.html">Más</a></li>
+    </ul>
+    <ul class="nav-menu-right">
+        <li id="btn-login-nav"><a href="#" onclick="typeof showLogin!=='undefined'?showLogin():window.location.href='index.html'" style="color:white;"><i class="fas fa-user"></i> Sesión</a></li>
+        <li id="nav-user-info-nav" style="display:none;"><a href="mis-cursos.html" style="color:white;"><i class="fas fa-user-circle"></i> <span id="nav-user-name-nav"></span></a> <a href="#" onclick="logout()" style="background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:5px;color:white;font-size:13px;margin-left:6px;">Salir</a></li>
+    </ul>
+</nav>
+
+<!-- Modal de información para semilleros -->
+<div id="infoModalSemillero" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:5000;justify-content:center;align-items:center;">
+    <div style="background:white;max-width:550px;width:90%;border-radius:20px;overflow:hidden;box-shadow:0 25px 50px rgba(0,0,0,0.3);">
+        <div style="background:linear-gradient(135deg,#00b894,#00897b);color:white;padding:20px 25px;display:flex;justify-content:space-between;align-items:center;">
+            <h3 id="info-title-sem" style="margin:0;font-size:20px;font-weight:500;"></h3>
+            <span onclick="document.getElementById('infoModalSemillero').style.display='none'" style="cursor:pointer;font-size:28px;">&times;</span>
+        </div>
+        <div style="padding:30px;">
+            <p id="info-desc-sem" style="color:#444;line-height:1.8;margin-bottom:20px;"></p>
+            <p id="info-fecha-sem" style="color:#00897b;font-weight:bold;font-size:15px;"></p>
+            <p style="color:#777;font-size:14px;margin-top:15px;">📧 Contacto: <strong>semilleros@smartderm.com</strong></p>
+            <div style="margin-top:25px;text-align:right;">
+                <button onclick="document.getElementById('infoModalSemillero').style.display='none'" style="background:#00b894;border:none;padding:10px 24px;color:white;border-radius:30px;cursor:pointer;font-size:14px;font-weight:bold;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="semillero">
+    <h1 class="titulo">🌱 Semilleros SmartDerm</h1>
+    <div class="semillero-grid">
+
+        <div class="semillero-card">
+            <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80" onerror="this.src='https://placehold.co/600x400/e0f2f1/00897b?text=SmartDerm'">
+            <h3>Semillero en Dermatología Oncológica</h3>
+            <p>Investigación en cáncer de piel y terapias emergentes.</p>
+            <button onclick="showInfoSemillero('Semillero en Dermatología Oncológica','Este semillero está enfocado en el estudio del cáncer de piel, incluyendo melanoma y carcinoma no melanoma. Los estudiantes participan en proyectos de detección temprana, análisis de terapias dirigidas y epidemiología. Se realizan sesiones quincenales con revisión de literatura y diseño de protocolos de investigación.','📅 Reuniones: Jueves 4:00 PM (virtual) – Inicio: Marzo 2025')">🔬 Ver Información</button>
+        </div>
+
+        <div class="semillero-card">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" onerror="this.src='https://placehold.co/600x400/e0f2f1/00897b?text=SmartDerm'">
+            <h3>Salud Cutánea y Enfermedades Sistémicas</h3>
+            <p>Relación entre enfermedades internas y manifestaciones dermatológicas.</p>
+            <button onclick="showInfoSemillero('Salud Cutánea y Enfermedades Sistémicas','Explora la relación entre enfermedades como diabetes, lupus, VIH y sus manifestaciones dermatológicas. Los integrantes desarrollan casos clínicos y revisan biomarcadores cutáneos. Ideal para estudiantes de medicina interesados en interconsultas dermatológicas.','📅 Reuniones: Martes 3:00 PM (presencial) – Sede Bogotá')">🩺 Ver Información</button>
+        </div>
+
+        <div class="semillero-card">
+            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80" onerror="this.src='https://placehold.co/600x400/e0f2f1/00897b?text=SmartDerm'">
+            <h3>Semillero de Dermatología Digital</h3>
+            <p>Innovaciones en telemedicina, apps y diagnóstico por imagen.</p>
+            <button onclick="showInfoSemillero('Semillero de Dermatología Digital','Trabajamos en proyectos de inteligencia artificial aplicada a imágenes dermatológicas, desarrollo de apps móviles para seguimiento de pacientes y plataformas de telemedicina. Se requieren conocimientos básicos de programación o diseño.','📅 Reuniones: Miércoles 5:00 PM (virtual) – Inscripción abierta todo el año')">📱 Ver Información</button>
+        </div>
+
+        <div class="semillero-card">
+            <img src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=600&q=80" onerror="this.src='https://placehold.co/600x400/e0f2f1/00897b?text=SmartDerm'">
+            <h3>Medicina Regenerativa y Dermatología</h3>
+            <p>Reparación de tejidos y nuevas terapias cutáneas.</p>
+            <button onclick="showInfoSemillero('Medicina Regenerativa y Dermatología','Estudiamos el uso de células madre, factores de crecimiento y plasma rico en plaquetas (PRP) para cicatrización, rejuvenecimiento y tratamiento de úlceras. Colaboración con laboratorios de investigación básica.','📅 Reuniones: Lunes 2:00 PM (mixto) – Inicio: Abril 2025')">🧬 Ver Información</button>
+        </div>
+
+        <div class="semillero-card">
+            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80" onerror="this.src='https://placehold.co/600x400/e0f2f1/00897b?text=SmartDerm'">
+            <h3>Jóvenes Líderes en Dermatología</h3>
+            <p>Desarrollo de liderazgo y comunicación científica.</p>
+            <button onclick="showInfoSemillero('Jóvenes Líderes en Dermatología','Dirigido a estudiantes de pregrado que deseen desarrollar habilidades de liderazgo, comunicación científica y gestión de eventos. Cada semestre se organiza una jornada de presentación de casos clínicos.','📅 Reuniones: Viernes 10:00 AM (virtual) – Certificación al finalizar')">🌟 Ver Información</button>
+        </div>
+
+        <div class="semillero-card">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80" onerror="this.src='https://placehold.co/600x400/e0f2f1/00897b?text=SmartDerm'">
+            <h3>Exploradores de la Dermis</h3>
+            <p>Iniciación a la investigación dermatológica.</p>
+            <button onclick="showInfoSemillero('Exploradores de la Dermis','Semillero introductorio para estudiantes de primeros semestres. Se realizan talleres de dermatoscopía básica, análisis de lesiones elementales y se fomenta la participación en ferias científicas.','📅 Reuniones: Sábados 9:00 AM (presencial) – Cupo limitado')">🔍 Ver Información</button>
+        </div>
+
+    </div>
+</section>
+
+<div style="text-align:center;margin:30px 0 60px;">
+    <a href="index.html" class="btn-volver">← Volver al Inicio</a>
+</div>
+
+<script src="script.js"></script>
+<script src="main.js"></script>
+<script>
+function showInfoSemillero(title, desc, fecha) {
+    document.getElementById('info-title-sem').textContent = title;
+    document.getElementById('info-desc-sem').textContent = desc;
+    document.getElementById('info-fecha-sem').textContent = fecha || '';
+    document.getElementById('infoModalSemillero').style.display = 'flex';
+}
+</script>
+
+</body>
+</html>
