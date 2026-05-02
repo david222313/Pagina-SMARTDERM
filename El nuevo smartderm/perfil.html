@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Perfil - SmartDerm</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #f0f2f5; }
+.perfil-wrap { max-width: 1000px; margin: 0 auto; padding: 40px 20px 80px; }
+.perfil-hero {
+    background: linear-gradient(135deg, #00b894 0%, #00897b 100%);
+    border-radius: 20px;
+    padding: 36px 40px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+}
+.perfil-hero::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+}
+.avatar-wrap { position: relative; flex-shrink: 0; }
+.avatar-circle {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.4);
+    overflow: hidden;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 44px; font-weight: 700; color: #fff;
+    cursor: pointer;
+    position: relative;
+}
+.avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+.avatar-edit-btn {
+    position: absolute; bottom: 2px; right: 2px;
+    width: 30px; height: 30px;
+    background: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    color: #00897b; font-size: 13px;
+}
+.perfil-info h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.perfil-info p { opacity: 0.85; font-size: 15px; }
+.perfil-info .role-badge {
+    display: inline-block; background: rgba(255,255,255,0.2);
+    padding: 3px 12px; border-radius: 20px; font-size: 12px;
+    font-weight: 600; margin-top: 8px;
+}
+.perfil-stats {
+    margin-left: auto;
+    display: flex; gap: 28px; text-align: center; flex-shrink: 0;
+}
+.pstat-val { font-size: 28px; font-weight: 700; }
+.pstat-lbl { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+
+.perfil-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 24px; }
+
+.p-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+}
+.p-card h3 {
+    font-size: 16px; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex; align-items: center; gap: 8px;
+}
+.form-group { margin-bottom: 16px; }
+.form-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 6px; }
+.form-control {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid #e8e8e8; border-radius: 8px;
+    font-size: 14px; font-family: inherit; color: #333;
+    transition: border-color 0.2s;
+}
+.form-control:focus { outline: none; border-color: #00b894; box-shadow: 0 0 0 3px rgba(0,184,148,0.1); }
+.form-control:read-only { background: #f9f9f9; cursor: default; color: #888; }
+.toggle-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid #f5f5f5;
+}
+.toggle-row:last-child { border-bottom: none; }
+.toggle-row span { font-size: 14px; color: #444; }
+.switch { position: relative; display: inline-block; width: 42px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; inset: 0; background: #ccc; border-radius: 24px; cursor: pointer; transition: 0.3s; }
+.slider:before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: 0.3s; }
+input:checked + .slider { background: #00b894; }
+input:checked + .slider:before { transform: translateX(18px); }
+
+.btn-save {
+    background: linear-gradient(135deg, #00b894, #00897b);
+    color: #fff; border: none; padding: 12px 28px;
+    border-radius: 8px; font-size: 14px; font-weight: 600;
+    cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 4px;
+}
+.btn-save:hover { opacity: 0.9; }
+
+.curso-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 0; border-bottom: 1px solid #f5f5f5;
+}
+.curso-row:last-child { border-bottom: none; }
+.curso-row img { width: 60px; height: 48px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.curso-row .cr-info { flex: 1; min-width: 0; }
+.curso-row .cr-name { font-size: 14px; font-weight: 600; color: #1a1a2e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.curso-row .cr-meta { font-size: 12px; color: #888; margin-top: 3px; }
+.progress-mini { height: 6px; background: #e8e8e8; border-radius: 10px; overflow: hidden; margin-top: 6px; }
+.progress-mini-bar { height: 100%; background: linear-gradient(90deg, #00b894, #00d4aa); border-radius: 10px; transition: width 0.4s; }
+.cert-badge {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: #fff; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+}
+.empty-state { text-align: center; padding: 32px 20px; color: #bbb; }
+.empty-state i { font-size: 40px; margin-bottom: 12px; display: block; }
+.empty-state p { font-size: 14px; }
+
+.photo-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.btn-outline { background: transparent; color: #00897b; border: 1.5px solid #00b894; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.btn-outline:hover { background: #00b894; color: #fff; }
+.btn-danger-sm { background: transparent; color: #e74c3c; border: 1.5px solid #e74c3c; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+
+@media (max-width: 768px) {
+    .perfil-hero { flex-direction: column; text-align: center; padding: 28px 20px; }
+    .perfil-stats { margin-left: 0; justify-content: center; }
+    .perfil-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV (se inyecta desde script.js) -->
+<div id="nav-placeholder"></div>
+
+<div class="perfil-wrap">
+
+    <!-- HERO BANNER -->
+    <div class="perfil-hero">
+        <div class="avatar-wrap">
+            <div class="avatar-circle" id="avatar-display" onclick="document.getElementById('avatar-file').click()">
+                <span id="avatar-initials">?</span>
+                <img id="avatar-img" src="" alt="" style="display:none; position:absolute; inset:0;">
+            </div>
+            <div class="avatar-edit-btn" title="Cambiar foto" onclick="document.getElementById('avatar-file').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+            <input type="file" id="avatar-file" accept="image/*" style="display:none;" onchange="handleAvatarUpload(this)">
+        </div>
+        <div class="perfil-info">
+            <h1 id="hero-name">Cargando...</h1>
+            <p id="hero-email" style="display:none;"></p>
+            <p id="hero-bio" style="font-style:italic; opacity:0.75;"></p>
+            <span class="role-badge" id="hero-role">Estudiante</span>
+        </div>
+        <div class="perfil-stats">
+            <div><div class="pstat-val" id="stat-cursos">0</div><div class="pstat-lbl">Cursos<br>inscritos</div></div>
+            <div><div class="pstat-val" id="stat-completados">0</div><div class="pstat-lbl">Cursos<br>completados</div></div>
+            <div><div class="pstat-val" id="stat-progreso">0%</div><div class="pstat-lbl">Progreso<br>promedio</div></div>
+        </div>
+    </div>
+
+    <div class="perfil-grid">
+
+        <!-- COLUMNA IZQUIERDA -->
+        <div>
+            <!-- Datos personales -->
+            <div class="p-card">
+                <h3><i class="fas fa-user" style="color:#00b894;"></i> Información Personal</h3>
+                <div class="form-group">
+                    <label class="form-label">Nombre completo</label>
+                    <input type="text" class="form-control" id="p-name" placeholder="Tu nombre completo">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="p-email" placeholder="tu@email.com" readonly>
+                    <small style="color:#aaa; font-size:12px; margin-top:4px; display:block;">El email no se puede cambiar</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Profesión / Especialidad</label>
+                    <input type="text" class="form-control" id="p-profesion" placeholder="Ej: Médico general, Estudiante de medicina...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Biografía breve</label>
+                    <textarea class="form-control" id="p-bio" rows="3" placeholder="Cuéntanos algo sobre ti..."></textarea>
+                </div>
+                <button class="btn-save" onclick="saveProfile()"><i class="fas fa-save"></i> Guardar cambios</button>
+            </div>
+
+            <!-- Privacidad -->
+            <div class="p-card">
+                <h3><i class="fas fa-lock" style="color:#00b894;"></i> Privacidad</h3>
+                <div class="toggle-row">
+                    <span>Mostrar email en mi perfil</span>
+                    <label class="switch"><input type="checkbox" id="priv-email" onchange="savePrivacy()"><span class="slider"></span></label>
+                </div>
+                <div class="toggle-row">
+                    <span>Mostrar mis cursos completados</span>
+                    <label class="switch"><input type="checkbox" id="priv-cursos" checked onchange="savePrivacy()"><span class="slider"></span></label>
+                </div>
+                <div class="toggle-row">
+                    <span>Recibir notificaciones de nuevos cursos</span>
+                    <label class="switch"><input type="checkbox" id="priv-notif" checked onchange="savePrivacy()"><span class="slider"></span></label>
+                </div>
+            </div>
+
+            <!-- Cambiar contraseña -->
+            <div class="p-card">
+                <h3><i class="fas fa-key" style="color:#00b894;"></i> Cambiar Contraseña</h3>
+                <div class="form-group">
+                    <label class="form-label">Contraseña actual</label>
+                    <input type="password" class="form-control" id="pw-current" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nueva contraseña</label>
+                    <input type="password" class="form-control" id="pw-new" placeholder="Mínimo 6 caracteres">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirmar nueva contraseña</label>
+                    <input type="password" class="form-control" id="pw-confirm" placeholder="Repetir contraseña">
+                </div>
+                <button class="btn-save" onclick="changePassword()"><i class="fas fa-lock"></i> Actualizar contraseña</button>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA -->
+        <div>
+            <!-- Foto de perfil opciones -->
+            <div class="p-card">
+                <h3><i class="fas fa-camera" style="color:#00b894;"></i> Foto de Perfil</h3>
+                <div style="display:flex; align-items:center; gap:20px;">
+                    <div id="photo-preview-big" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#00b894,#00897b);display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;font-weight:700;overflow:hidden;flex-shrink:0;">
+                        <span id="photo-initial">?</span>
+                        <img id="photo-preview-img" src="" style="display:none;width:100%;height:100%;object-fit:cover;">
+                    </div>
+                    <div>
+                        <p style="font-size:13px;color:#666;margin-bottom:10px;">Sube una foto en JPG, PNG o GIF. Máximo 2MB.</p>
+                        <div class="photo-btns">
+                            <button class="btn-outline" onclick="document.getElementById('avatar-file').click()"><i class="fas fa-upload"></i> Subir foto</button>
+                            <button class="btn-danger-sm" onclick="removeAvatar()"><i class="fas fa-trash"></i> Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mis cursos inscritos -->
+            <div class="p-card">
+                <h3><i class="fas fa-graduation-cap" style="color:#00b894;"></i> Mis Cursos</h3>
+                <div id="perfil-cursos-list">
+                    <div class="empty-state">
+                        <i class="fas fa-book-open"></i>
+                        <p>No estás inscrito en ningún curso aún.<br><a href="cursos-disponibles.html" style="color:#00b894;">Ver cursos disponibles →</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificados -->
+            <div class="p-card">
+                <h3><i class="fas fa-certificate" style="color:#00b894;"></i> Certificados Obtenidos</h3>
+                <div id="perfil-certs-list">
+                    <div class="empty-state">
+                        <i class="fas fa-award"></i>
+                        <p>Completa un curso para obtener tu primer certificado.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asistente IA embebido -->
+            <div class="p-card">
+                <h3><i class="fas fa-robot" style="color:#00b894;"></i> Asistente DermBot</h3>
+                <p style="font-size:13px;color:#777;margin-bottom:12px;">¿Tienes dudas sobre tu piel o los cursos? Pregúntale a DermBot.</p>
+                <div id="perfil-assistant"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<script src="script.js"></script>
+<script src="asistente.js"></script>
+<script>
+// ── INIT ──────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function () {
+    loadUserData();
+    if (!currentUser) { window.location.href = 'index.html'; return; }
+    renderNav();
+    loadProfileData();
+    renderCursos();
+    initAssistant({ containerId: 'perfil-assistant' });
+});
+
+// ── NAV INJECTION ─────────────────────────────────────
+function renderNav() {
+    const nav = document.getElementById('nav-placeholder');
+    if (!nav) return;
+    nav.innerHTML = `
+    <div class="menu-btn"><i class="fas fa-bars fa-2x"></i></div>
+    <nav class="nav-main">
+        <img src="${getLogoSrc()}" alt="SmartDerm" class="nav-brand" onerror="this.style.display='none'">
+        <ul class="nav-menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="mis-cursos.html">Mis Cursos</a></li>
+            <li><a href="cursos-disponibles.html">Cursos Disponibles</a></li>
+            <li><a href="semilleros.html">Semilleros</a></li>
+            <li><a href="congresos.html">Congresos</a></li>
+            <li><a href="contacto.html">Más</a></li>
+        </ul>
+        <ul class="nav-menu-right">
+            <li><a href="perfil.html" style="color:#00b894;"><i class="fas fa-user-circle"></i> Mi Perfil</a></li>
+            <li><a href="#" onclick="logout()" style="background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:5px;color:white;font-size:13px;">Salir</a></li>
+        </ul>
+    </nav>`;
+    if (typeof main === 'undefined') {
+        const mb = nav.querySelector('.menu-btn');
+        const nm = nav.querySelector('.nav-menu');
+        if (mb && nm) mb.addEventListener('click', () => nm.classList.toggle('show'));
+    }
+}
+
+function getLogoSrc() {
+    const imgs = document.querySelectorAll('img.nav-brand');
+    if (imgs.length > 0) return imgs[0].src;
+    return '';
+}
+
+// ── LOAD PROFILE ──────────────────────────────────────
+function loadProfileData() {
+    const profile = JSON.parse(localStorage.getItem(`profile_${currentUser.email}`) || '{}');
+    document.getElementById('p-name').value = currentUser.name || '';
+    document.getElementById('p-email').value = currentUser.email || '';
+    document.getElementById('p-profesion').value = profile.profesion || '';
+    document.getElementById('p-bio').value = profile.bio || '';
+    document.getElementById('hero-name').textContent = currentUser.name || 'Usuario';
+    document.getElementById('hero-role').textContent = currentUser.role === 'admin' ? '👑 Administrador' : '🎓 Estudiante';
+    if (profile.bio) document.getElementById('hero-bio').textContent = profile.bio;
+
+    // Privacy toggles
+    document.getElementById('priv-email').checked = profile.showEmail || false;
+    document.getElementById('priv-cursos').checked = profile.showCursos !== false;
+    document.getElementById('priv-notif').checked = profile.notif !== false;
+
+    if (profile.showEmail) {
+        document.getElementById('hero-email').textContent = currentUser.email;
+        document.getElementById('hero-email').style.display = '';
+    }
+
+    // Avatar
+    if (profile.avatarUrl) {
+        setAvatarImg(profile.avatarUrl);
+    } else {
+        const initial = (currentUser.name || 'U')[0].toUpperCase();
+        document.getElementById('avatar-initials').textContent = initial;
+        document.getElementById('photo-initial').textContent = initial;
+    }
+}
+
+// ── SAVE PROFILE ──────────────────────────────────────
+function saveProfile() {
+    const name = document.getElementById('p-name').value.trim();
+    const profesion = document.getElementById('p-profesion').value.trim();
+    const bio = document.getElementById('p-bio').value.trim();
+    if (!name) { showToast('El nombre no puede estar vacío.', 'error'); return; }
+    currentUser.name = name;
+    const profile = JSON.parse(localStorage.getItem(`profile_${currentUser.email}`) || '{}');
+    profile.profesion = profesion;
+    profile.bio = bio;
+    localStorage.setItem(`profile_${currentUser.email}`, JSON.stringify(profile));
+    saveUserData();
+    document.getElementById('hero-name').textContent = name;
+    if (bio) document.getElementById('hero-bio').textContent = bio;
+    showToast('✅ Perfil actualizado correctamente.', 'success');
+}
+
+function savePrivacy() {
+    const profile = JSON.parse(localStorage.getItem(`profile_${currentUser.email}`) || '{}');
+    profile.showEmail = document.getElementById('priv-email').checked;
+    profile.showCursos = document.getElementById('priv-cursos').checked;
+    profile.notif = document.getElementById('priv-notif').checked;
+    localStorage.setItem(`profile_${currentUser.email}`, JSON.stringify(profile));
+    const emailEl = document.getElementById('hero-email');
+    if (profile.showEmail) {
+        emailEl.textContent = currentUser.email;
+        emailEl.style.display = '';
+    } else {
+        emailEl.style.display = 'none';
+    }
+    showToast('Preferencias de privacidad guardadas.', 'success');
+}
+
+function changePassword() {
+    const current = document.getElementById('pw-current').value;
+    const newPw = document.getElementById('pw-new').value;
+    const confirm = document.getElementById('pw-confirm').value;
+    if (currentUser.password !== current) { showToast('La contraseña actual es incorrecta.', 'error'); return; }
+    if (newPw.length < 6) { showToast('La nueva contraseña debe tener al menos 6 caracteres.', 'error'); return; }
+    if (newPw !== confirm) { showToast('Las contraseñas no coinciden.', 'error'); return; }
+    currentUser.password = newPw;
+    saveUserData();
+    document.getElementById('pw-current').value = '';
+    document.getElementById('pw-new').value = '';
+    document.getElementById('pw-confirm').value = '';
+    showToast('✅ Contraseña actualizada correctamente.', 'success');
+}
+
+// ── AVATAR ────────────────────────────────────────────
+function handleAvatarUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) { showToast('La imagen no puede superar los 2MB.', 'error'); return; }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const url = e.target.result;
+        setAvatarImg(url);
+        const profile = JSON.parse(localStorage.getItem(`profile_${currentUser.email}`) || '{}');
+        profile.avatarUrl = url;
+        localStorage.setItem(`profile_${currentUser.email}`, JSON.stringify(profile));
+        showToast('✅ Foto de perfil actualizada.', 'success');
+    };
+    reader.readAsDataURL(file);
+}
+
+function setAvatarImg(url) {
+    const img1 = document.getElementById('avatar-img');
+    const img2 = document.getElementById('photo-preview-img');
+    document.getElementById('avatar-initials').style.display = 'none';
+    document.getElementById('photo-initial').style.display = 'none';
+    img1.src = url; img1.style.display = 'block';
+    img2.src = url; img2.style.display = 'block';
+}
+
+function removeAvatar() {
+    const profile = JSON.parse(localStorage.getItem(`profile_${currentUser.email}`) || '{}');
+    delete profile.avatarUrl;
+    localStorage.setItem(`profile_${currentUser.email}`, JSON.stringify(profile));
+    document.getElementById('avatar-img').style.display = 'none';
+    document.getElementById('photo-preview-img').style.display = 'none';
+    const init = (currentUser.name || 'U')[0].toUpperCase();
+    document.getElementById('avatar-initials').textContent = init;
+    document.getElementById('avatar-initials').style.display = '';
+    document.getElementById('photo-initial').textContent = init;
+    document.getElementById('photo-initial').style.display = '';
+    showToast('Foto de perfil eliminada.', 'info');
+}
+
+// ── RENDER CURSOS ─────────────────────────────────────
+function renderCursos() {
+    const cursosList = document.getElementById('perfil-cursos-list');
+    const certsList = document.getElementById('perfil-certs-list');
+    const enrolled = Object.entries(userCourses);
+
+    document.getElementById('stat-cursos').textContent = enrolled.length;
+    const completed = enrolled.filter(([,v]) => v.completed);
+    document.getElementById('stat-completados').textContent = completed.length;
+    const avgProg = enrolled.length ? Math.round(enrolled.reduce((s,[,v]) => s + (v.progress||0), 0) / enrolled.length) : 0;
+    document.getElementById('stat-progreso').textContent = avgProg + '%';
+
+    if (!enrolled.length) return;
+
+    cursosList.innerHTML = enrolled.map(([id, data]) => {
+        const c = CURSOS_INFO[id];
+        if (!c) return '';
+        const prog = data.progress || 0;
+        return `
+        <div class="curso-row">
+            <img src="${c.img}" onerror="this.src='https://placehold.co/60x48/e0f2f1/00897b?text=SD'">
+            <div class="cr-info">
+                <div class="cr-name" title="${c.nombre}">${c.nombre}</div>
+                <div class="cr-meta">${c.nivel} · ${c.duracion}</div>
+                <div class="progress-mini"><div class="progress-mini-bar" style="width:${prog}%"></div></div>
+            </div>
+            <div style="flex-shrink:0;text-align:right;">
+                <div style="font-size:13px;font-weight:700;color:${prog===100?'#00b894':'#888'}">${prog}%</div>
+                <button onclick="showCoursePreview(${id})" style="font-size:11px;color:#00897b;background:none;border:none;cursor:pointer;padding:0;margin-top:4px;">Ver →</button>
+            </div>
+        </div>`;
+    }).join('');
+
+    // Certificates
+    const certsHTML = completed.map(([id]) => {
+        const c = CURSOS_INFO[id];
+        if (!c || c.sinCertificacion) return '';
+        return `
+        <div class="curso-row">
+            <div style="width:52px;height:52px;background:linear-gradient(135deg,#f39c12,#e67e22);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🏆</div>
+            <div class="cr-info">
+                <div class="cr-name">${c.nombre}</div>
+                <div class="cr-meta">Instructor: ${c.instructor}</div>
+            </div>
+            <button onclick="showCertificate(${id})" style="background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">Descargar</button>
+        </div>`;
+    }).join('');
+
+    certsList.innerHTML = certsHTML || `<div class="empty-state"><i class="fas fa-award"></i><p>Completa un curso con evaluación para obtener certificado.</p></div>`;
+}
+
+// ── TOAST ─────────────────────────────────────────────
+function showToast(msg, type = 'info') {
+    const c = document.getElementById('toast-container');
+    const t = document.createElement('div');
+    t.className = `toast toast-${type}`;
+    const icons = { success:'✓', error:'✕', info:'ℹ' };
+    t.innerHTML = `<span>${icons[type]||'ℹ'}</span><span>${msg}</span>`;
+    c.appendChild(t);
+    setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(40px)'; t.style.transition='0.3s'; setTimeout(()=>t.remove(),300); }, 3000);
+}
+</script>
+</body>
+</html>
