@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso – SmartDerm</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<!-- SUPABASE CDN – obligatorio -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;}
+.curso-layout{display:grid;grid-template-columns:320px 1fr;min-height:calc(100vh - 70px);background:#f4f6f8;}
+/* ── SIDEBAR ── */
+.sidebar{background:#0f2a44;color:#fff;padding:0;overflow-y:auto;position:sticky;top:70px;height:calc(100vh - 70px);}
+.sidebar-header{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sidebar-header h2{font-size:15px;font-weight:600;line-height:1.4;margin-bottom:8px;color:#fff;}
+.curso-progreso-bar{background:rgba(255,255,255,.15);border-radius:10px;height:6px;overflow:hidden;margin-top:10px;}
+.curso-progreso-fill{background:#2ed1c3;height:100%;border-radius:10px;transition:.4s;}
+.progreso-label{font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;}
+.leccion-item{display:flex;align-items:flex-start;gap:12px;padding:14px 20px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.06);transition:.2s;border-left:3px solid transparent;}
+.leccion-item:hover{background:rgba(255,255,255,.07);}
+.leccion-item.active{background:rgba(46,209,195,.12);border-left-color:#2ed1c3;}
+.leccion-item.completada .leccion-num{background:#2ed1c3;color:#0f2a44;}
+.leccion-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;transition:.2s;}
+.leccion-info h4{font-size:13px;font-weight:500;color:rgba(255,255,255,.9);line-height:1.4;margin-bottom:3px;}
+.leccion-info span{font-size:11px;color:rgba(255,255,255,.45);}
+/* ── CONTENIDO ── */
+.curso-content{padding:0;}
+.video-section{background:#000;width:100%;}
+.video-section iframe{width:100%;height:480px;border:none;display:block;}
+.video-placeholder-big{background:#1a1a2e;width:100%;height:480px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.4);}
+.video-placeholder-big i{font-size:56px;margin-bottom:16px;opacity:.3;}
+.leccion-content-area{max-width:820px;margin:0 auto;padding:36px 32px;}
+.leccion-header{margin-bottom:24px;}
+.leccion-header h1{font-family:'Oswald',sans-serif;font-size:28px;font-weight:500;color:#0f2a44;line-height:1.3;}
+.leccion-header .meta{display:flex;gap:16px;margin-top:10px;font-size:13px;color:#888;}
+.leccion-body{font-size:15px;line-height:1.85;color:#444;}
+.leccion-body h3{color:#00897b;font-size:18px;margin:24px 0 10px;}
+.leccion-body h4{color:#0f2a44;font-size:16px;margin:18px 0 8px;}
+.leccion-body ul, .leccion-body ol{padding-left:22px;margin:10px 0;}
+.leccion-body li{margin-bottom:6px;}
+.leccion-body strong{color:#0f2a44;}
+.leccion-body p{margin-bottom:12px;}
+/* ── NAV INFERIOR ── */
+.leccion-nav{display:flex;justify-content:space-between;align-items:center;padding:24px 32px;border-top:1px solid #e5e9ee;background:#fff;max-width:820px;margin:0 auto;}
+.btn-nav{padding:11px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:.2s;font-family:'Inter',sans-serif;}
+.btn-prev{background:#f4f6f8;color:#555;border:1.5px solid #ddd;}
+.btn-prev:hover{background:#e9ecef;}
+.btn-complete{background:#00b894;color:#fff;padding:11px 28px;}
+.btn-complete:hover{background:#00897b;}
+.btn-complete.ya-completada{background:#e0f2f1;color:#00897b;cursor:default;}
+.btn-next{background:#0f2a44;color:#fff;}
+.btn-next:hover{background:#1a3d5c;}
+/* ── PUBMED ── */
+.pubmed-section{max-width:820px;margin:0 auto;padding:0 32px 40px;}
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+    .curso-layout{grid-template-columns:1fr;}
+    .sidebar{position:static;height:auto;max-height:300px;}
+    .video-section iframe,.video-placeholder-big{height:240px;}
+    .leccion-content-area,.leccion-nav,.pubmed-section{padding-left:16px;padding-right:16px;}
+}
+</style>
+</head>
+<body>
+<!-- NAVBAR -->
+<div class="menu-btn"><i class="fas fa-bars fa-2x"></i></div>
+<nav class="nav-main">
+    <span class="nav-brand" style="font-family:'Oswald',sans-serif;font-size:20px;font-weight:500;color:#2ed1c3;letter-spacing:1px;">SmartDerm</span>
+    <ul class="nav-menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="mis-cursos.html">Mis Cursos</a></li>
+        <li><a href="proximos-desarrollos.html">Próximos Desarrollos</a></li>
+        <li><a href="cursos-disponibles.html">Cursos Disponibles</a></li>
+        <li><a href="semilleros.html">Semilleros</a></li>
+        <li><a href="congresos.html">Congresos</a></li>
+        <li><a href="skincare-summit.html">Summit</a></li>
+        <li><a href="contacto.html">Más</a></li>
+    </ul>
+    <ul class="nav-menu-right">
+        <li id="btn-login-nav"><a href="#" onclick="showLogin()" style="color:white;"><i class="fas fa-user"></i> Sesión</a></li>
+        <li id="nav-user-info-nav" style="display:none;">
+            <a href="perfil.html" style="color:white;"><i class="fas fa-user-circle"></i> <span id="nav-user-name-nav"></span></a>
+            <a href="#" onclick="logout()" style="background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:5px;color:white;font-size:13px;margin-left:6px;">Salir</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- LAYOUT PRINCIPAL -->
+<div class="curso-layout">
+
+    <!-- SIDEBAR: lista de lecciones -->
+    <aside class="sidebar" id="sidebar-lecciones">
+        <div class="sidebar-header">
+            <h2 id="sidebar-curso-nombre">Cargando curso...</h2>
+            <div class="curso-progreso-bar">
+                <div class="curso-progreso-fill" id="sidebar-progreso-fill" style="width:0%;"></div>
+            </div>
+            <p class="progreso-label" id="sidebar-progreso-label">0% completado</p>
+        </div>
+        <div id="sidebar-lista"></div>
+    </aside>
+
+    <!-- CONTENIDO: video + texto -->
+    <main>
+        <!-- Video -->
+        <div class="video-section" id="video-section">
+            <div class="video-placeholder-big">
+                <i class="fas fa-play-circle"></i>
+                <p>Selecciona una lección para comenzar</p>
+            </div>
+        </div>
+
+        <!-- Texto de la lección -->
+        <div class="leccion-content-area">
+            <div class="leccion-header" id="leccion-header" style="display:none;">
+                <h1 id="leccion-titulo">—</h1>
+                <div class="meta">
+                    <span id="leccion-orden"></span>
+                    <span id="leccion-duracion"></span>
+                </div>
+            </div>
+            <div class="leccion-body" id="leccion-body">
+                <p style="color:#aaa;font-style:italic;">Selecciona una lección del panel izquierdo para comenzar.</p>
+            </div>
+        </div>
+
+        <!-- Navegación inferior -->
+        <div class="leccion-nav" id="leccion-nav" style="display:none;">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="navLeccion(-1)">← Anterior</button>
+            <button class="btn-nav btn-complete" id="btn-complete" onclick="completarLeccion()">✓ Marcar como completada</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="navLeccion(1)">Siguiente →</button>
+        </div>
+
+        <!-- PubMed artículos -->
+        <div class="pubmed-section">
+            <div id="pubmed-articles"></div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal de evaluación (reutilizado de script.js) -->
+<div id="evalModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:5000;justify-content:center;align-items:center;padding:20px;">
+    <div style="background:#fff;border-radius:16px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;">
+        <h3 id="eval-title" style="margin-bottom:20px;color:#0f2a44;font-size:20px;"></h3>
+        <div id="eval-questions-container" style="display:flex;flex-direction:column;gap:16px;"></div>
+        <div style="margin-top:24px;display:flex;gap:12px;justify-content:flex-end;">
+            <button onclick="closeModal()" style="padding:10px 20px;background:#f4f6f8;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-weight:600;">Cancelar</button>
+            <button onclick="submitEval()" style="padding:10px 24px;background:#00b894;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;">Enviar respuestas</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script src="asistente.js"></script>
+<script>
+// ── ESTADO LOCAL DE ESTA PÁGINA ──
+let LECCIONES       = [];       // array de lecciones del curso
+let PROGRESO_SET    = new Set();// IDs de lecciones completadas
+let currentLeccionIdx = 0;
+let cursoId         = null;
+
+// ── INICIALIZACIÓN ──
+window.addEventListener('DOMContentLoaded', async () => {
+    // Esperar a que script.js inicialice la sesión
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    if (!currentUser) {
+        alert('Debes iniciar sesión para acceder a este curso.');
+        window.location.href = 'index.html';
+        return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    cursoId = parseInt(params.get('id'));
+    if (!cursoId) { window.location.href = 'mis-cursos.html'; return; }
+
+    // Verificar inscripción
+    const { data: inscripcion } = await db
+        .from('inscripciones')
+        .select('progreso,completado')
+        .eq('usuario_id', currentUser.id)
+        .eq('curso_id', cursoId)
+        .single();
+
+    if (!inscripcion) {
+        const ir = confirm('No estás inscrito en este curso. ¿Inscribirte ahora?');
+        if (ir) await enrollCourse(cursoId);
+        else { window.location.href = 'cursos-disponibles.html'; return; }
+    }
+
+    await loadLecciones();
+    await loadProgreso();
+    renderSidebar();
+    if (LECCIONES.length > 0) loadLeccion(0);
+
+    // Cargar artículos PubMed con el nombre del curso
+    const curso = CURSOS_INFO[cursoId];
+    if (curso) loadPubmedForCurso(cursoId, 'pubmed-articles');
+
+    // Asistente DermBot
+    if (typeof initAssistant === 'function') initAssistant({ containerId: null, courseContext: curso });
+});
+
+async function loadLecciones() {
+    const { data } = await db
+        .from('lecciones')
+        .select('*')
+        .eq('curso_id', cursoId)
+        .order('orden');
+    LECCIONES = data || [];
+    document.title = (CURSOS_INFO[cursoId]?.nombre || 'Curso') + ' – SmartDerm';
+    document.getElementById('sidebar-curso-nombre').textContent = CURSOS_INFO[cursoId]?.nombre || 'Curso';
+}
+
+async function loadProgreso() {
+    const { data } = await db
+        .from('progreso_lecciones')
+        .select('leccion_id')
+        .eq('usuario_id', currentUser.id)
+        .eq('curso_id', cursoId)
+        .eq('completada', true);
+    PROGRESO_SET = new Set((data || []).map(r => r.leccion_id));
+    actualizarBarraProgreso();
+}
+
+function actualizarBarraProgreso() {
+    const pct = LECCIONES.length > 0
+        ? Math.round((PROGRESO_SET.size / LECCIONES.length) * 100)
+        : 0;
+    document.getElementById('sidebar-progreso-fill').style.width = pct + '%';
+    document.getElementById('sidebar-progreso-label').textContent = `${pct}% completado · ${PROGRESO_SET.size}/${LECCIONES.length} lecciones`;
+}
+
+function renderSidebar() {
+    const lista = document.getElementById('sidebar-lista');
+    lista.innerHTML = LECCIONES.map((l, i) => {
+        const completada = PROGRESO_SET.has(l.id);
+        return `<div class="leccion-item ${completada ? 'completada' : ''} ${i === currentLeccionIdx ? 'active' : ''}"
+                     onclick="loadLeccion(${i})" id="leccion-item-${i}">
+            <div class="leccion-num">${completada ? '✓' : l.orden}</div>
+            <div class="leccion-info">
+                <h4>${l.titulo}</h4>
+                <span>${l.duracion_min || 15} min</span>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function loadLeccion(idx) {
+    if (idx < 0 || idx >= LECCIONES.length) return;
+    const l = LECCIONES[idx];
+    currentLeccionIdx = idx;
+
+    // Actualizar sidebar
+    document.querySelectorAll('.leccion-item').forEach((el, i) => el.classList.toggle('active', i === idx));
+
+    // Video
+    const videoSection = document.getElementById('video-section');
+    videoSection.innerHTML = l.video_id
+        ? `<iframe src="https://www.youtube.com/embed/${l.video_id}?rel=0&modestbranding=1&autoplay=0" title="${l.titulo}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+        : `<div class="video-placeholder-big"><i class="fas fa-book-open"></i><p style="margin-top:12px;font-size:15px;">Lección de lectura</p></div>`;
+
+    // Contenido
+    document.getElementById('leccion-titulo').textContent = l.titulo;
+    document.getElementById('leccion-orden').textContent  = `Lección ${l.orden} de ${LECCIONES.length}`;
+    document.getElementById('leccion-duracion').textContent = `⏱ ${l.duracion_min || 15} minutos`;
+    document.getElementById('leccion-body').innerHTML = l.contenido || '<p style="color:#aaa;">Contenido próximamente.</p>';
+    document.getElementById('leccion-header').style.display = 'block';
+    document.getElementById('leccion-nav').style.display   = 'flex';
+
+    // Botón completar
+    const btnComplete = document.getElementById('btn-complete');
+    const completada  = PROGRESO_SET.has(l.id);
+    btnComplete.textContent = completada ? '✅ Lección completada' : '✓ Marcar como completada';
+    btnComplete.className   = 'btn-nav btn-complete' + (completada ? ' ya-completada' : '');
+    btnComplete.onclick     = completada ? null : completarLeccion;
+
+    // Botones anterior/siguiente
+    document.getElementById('btn-prev').style.visibility = idx === 0 ? 'hidden' : 'visible';
+    document.getElementById('btn-next').textContent      = idx === LECCIONES.length - 1 ? 'Finalizar →' : 'Siguiente →';
+
+    // Scroll al inicio del contenido
+    document.querySelector('.leccion-content-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function completarLeccion() {
+    const l = LECCIONES[currentLeccionIdx];
+    if (!l || PROGRESO_SET.has(l.id)) return;
+
+    const { error } = await db.from('progreso_lecciones').upsert({
+        usuario_id:   currentUser.id,
+        leccion_id:   l.id,
+        curso_id:     cursoId,
+        completada:   true,
+        completada_en: new Date().toISOString()
+    }, { onConflict: 'usuario_id,leccion_id' });
+
+    if (error) { alert('Error al guardar progreso: ' + error.message); return; }
+
+    PROGRESO_SET.add(l.id);
+    actualizarBarraProgreso();
+    renderSidebar();
+
+    const btnComplete = document.getElementById('btn-complete');
+    btnComplete.textContent = '✅ Lección completada';
+    btnComplete.className   = 'btn-nav btn-complete ya-completada';
+    btnComplete.onclick     = null;
+
+    // Si es la última lección, mensaje de felicitación
+    if (PROGRESO_SET.size === LECCIONES.length) {
+        setTimeout(() => {
+            alert('🎉 ¡Felicitaciones! Completaste el 100% del curso. El progreso ha sido guardado en tu perfil.');
+        }, 300);
+    }
+}
+
+function navLeccion(dir) {
+    const nextIdx = currentLeccionIdx + dir;
+    if (nextIdx >= 0 && nextIdx < LECCIONES.length) {
+        loadLeccion(nextIdx);
+    } else if (nextIdx >= LECCIONES.length) {
+        // Último → volver a mis cursos
+        if (confirm('Has llegado al final del curso. ¿Volver a Mis Cursos?')) {
+            window.location.href = 'mis-cursos.html';
+        }
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Perfil – SmartDerm</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+.perfil-layout{max-width:960px;margin:40px auto;padding:0 24px;display:grid;grid-template-columns:280px 1fr;gap:28px;}
+.perfil-card{background:#fff;border-radius:16px;padding:32px 24px;box-shadow:0 2px 16px rgba(0,0,0,.07);text-align:center;height:fit-content;}
+.avatar-wrap{position:relative;width:100px;height:100px;margin:0 auto 16px;}
+.avatar-img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #e0f2f1;}
+.avatar-edit{position:absolute;bottom:0;right:0;background:#00b894;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;border:2px solid #fff;}
+.perfil-nombre{font-size:20px;font-weight:700;color:#0f2a44;margin-bottom:4px;}
+.perfil-rol{display:inline-block;background:#e0f2f1;color:#00695c;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:16px;}
+.perfil-email{font-size:13px;color:#888;}
+.perfil-stat{background:#f4f6f8;border-radius:10px;padding:14px 16px;margin-top:14px;display:flex;align-items:center;gap:12px;}
+.perfil-stat i{color:#00b894;font-size:18px;}
+.perfil-stat-info h4{font-size:13px;color:#888;margin-bottom:2px;}
+.perfil-stat-info p{font-size:18px;font-weight:700;color:#0f2a44;}
+/* formulario */
+.form-section{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.07);}
+.form-section h3{font-size:17px;font-weight:700;color:#0f2a44;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #f0f0f0;}
+.field-group{margin-bottom:16px;}
+.field-group label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;}
+.field-input{width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;transition:.2s;}
+.field-input:focus{outline:none;border-color:#00b894;box-shadow:0 0 0 3px rgba(0,184,148,.1);}
+.btn-save{background:#00b894;color:#fff;border:none;padding:11px 28px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;}
+.btn-save:hover{background:#00897b;}
+.btn-danger-outline{background:none;color:#e53935;border:1.5px solid #e53935;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
+.upload-hint{font-size:11px;color:#aaa;margin-top:6px;}
+.alert-success{background:#e0f2f1;color:#00695c;padding:12px 16px;border-radius:8px;font-size:13px;margin-top:12px;display:none;}
+.alert-error{background:#fce4ec;color:#c62828;padding:12px 16px;border-radius:8px;font-size:13px;margin-top:12px;display:none;}
+.docente-banner{background:linear-gradient(135deg,#0f2a44,#1a4a70);color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;}
+.docente-banner h3{color:#2ed1c3;margin-bottom:8px;}
+@media(max-width:720px){.perfil-layout{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="menu-btn"><i class="fas fa-bars fa-2x"></i></div>
+<nav class="nav-main">
+    <span class="nav-brand" style="font-family:'Oswald',sans-serif;font-size:20px;color:#2ed1c3;">SmartDerm</span>
+    <ul class="nav-menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="mis-cursos.html">Mis Cursos</a></li>
+        <li><a href="proximos-desarrollos.html">Próximos Desarrollos</a></li>
+        <li><a href="cursos-disponibles.html">Cursos Disponibles</a></li>
+        <li><a href="semilleros.html">Semilleros</a></li>
+        <li><a href="congresos.html">Congresos</a></li>
+        <li><a href="skincare-summit.html">Summit</a></li>
+        <li><a href="contacto.html">Más</a></li>
+    </ul>
+    <ul class="nav-menu-right">
+        <li id="btn-login-nav" style="display:none;"><a href="index.html" style="color:white;">Sesión</a></li>
+        <li id="nav-user-info-nav">
+            <a href="perfil.html" style="color:#2ed1c3;font-weight:600;"><i class="fas fa-user-circle"></i> <span id="nav-user-name-nav">Mi Perfil</span></a>
+            <a href="#" onclick="logout()" style="background:rgba(255,255,255,.2);padding:4px 10px;border-radius:5px;color:white;font-size:13px;margin-left:6px;">Salir</a>
+        </li>
+    </ul>
+</nav>
+
+<div style="padding:30px 24px 10px;max-width:960px;margin:auto;">
+    <h1 style="font-family:'Oswald',sans-serif;font-size:26px;font-weight:500;color:#0f2a44;">Mi Perfil</h1>
+    <p style="color:#888;font-size:14px;">Gestiona tu información personal y preferencias</p>
+</div>
+
+<div class="perfil-layout">
+    <!-- Tarjeta lateral -->
+    <aside>
+        <div class="perfil-card">
+            <div class="avatar-wrap">
+                <img id="avatar-img" src="https://placehold.co/100x100/e0f2f1/00897b?text=SD" alt="Avatar" class="avatar-img">
+                <label for="avatar-input" class="avatar-edit" title="Cambiar foto">
+                    <i class="fas fa-camera"></i>
+                </label>
+                <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarChange(this)">
+            </div>
+            <div class="perfil-nombre" id="card-nombre">Cargando...</div>
+            <div class="perfil-rol" id="card-rol">—</div>
+            <div class="perfil-email" id="card-email">—</div>
+
+            <div class="perfil-stat">
+                <i class="fas fa-book-open"></i>
+                <div class="perfil-stat-info"><h4>Cursos inscritos</h4><p id="stat-inscritos">—</p></div>
+            </div>
+            <div class="perfil-stat">
+                <i class="fas fa-check-circle"></i>
+                <div class="perfil-stat-info"><h4>Completados</h4><p id="stat-completados">—</p></div>
+            </div>
+            <div class="perfil-stat">
+                <i class="fas fa-calendar-alt"></i>
+                <div class="perfil-stat-info"><h4>Miembro desde</h4><p id="stat-fecha">—</p></div>
+            </div>
+
+            <button onclick="logout()" class="btn-danger-outline" style="margin-top:20px;width:100%;">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+    </aside>
+
+    <!-- Formularios -->
+    <div>
+        <!-- Banner docente (solo visible si rol=docente) -->
+        <div class="docente-banner" id="docente-banner" style="display:none;">
+            <h3>👨‍🏫 Perfil Docente</h3>
+            <p style="font-size:14px;color:rgba(255,255,255,.8);">El panel de gestión para docentes estará disponible próximamente. Podrás ver estadísticas de tus estudiantes, gestionar los cursos que impartes y más.</p>
+        </div>
+
+        <!-- Datos personales -->
+        <div class="form-section" style="margin-bottom:20px;">
+            <h3><i class="fas fa-user" style="color:#00b894;margin-right:8px;"></i>Información Personal</h3>
+            <div class="field-group">
+                <label>Nombre completo</label>
+                <input class="field-input" type="text" id="f-nombre" placeholder="Tu nombre">
+            </div>
+            <div class="field-group">
+                <label>Correo electrónico</label>
+                <input class="field-input" type="email" id="f-email" placeholder="tu@email.com" disabled style="opacity:.6;cursor:not-allowed;" title="El email no se puede cambiar aquí">
+            </div>
+            <div class="field-group">
+                <label>Biografía / Presentación</label>
+                <textarea class="field-input" id="f-bio" rows="3" placeholder="Cuéntanos sobre ti (opcional)"></textarea>
+            </div>
+            <div class="field-group" style="display:flex;align-items:center;gap:10px;">
+                <input type="checkbox" id="f-privado" style="accent-color:#00b894;width:16px;height:16px;">
+                <label for="f-privado" style="margin:0;cursor:pointer;">Perfil privado (solo yo lo veo)</label>
+            </div>
+            <button class="btn-save" onclick="guardarPerfil()">💾 Guardar cambios</button>
+            <div class="alert-success" id="msg-perfil">✅ Perfil actualizado correctamente.</div>
+            <div class="alert-error" id="err-perfil"></div>
+        </div>
+
+        <!-- Cambiar contraseña -->
+        <div class="form-section" style="margin-bottom:20px;">
+            <h3><i class="fas fa-lock" style="color:#00b894;margin-right:8px;"></i>Cambiar Contraseña</h3>
+            <div class="field-group">
+                <label>Nueva contraseña</label>
+                <input class="field-input" type="password" id="f-newpass" placeholder="Mínimo 6 caracteres">
+            </div>
+            <div class="field-group">
+                <label>Confirmar contraseña</label>
+                <input class="field-input" type="password" id="f-confpass" placeholder="Repite la contraseña">
+            </div>
+            <button class="btn-save" onclick="cambiarContrasena()">🔑 Cambiar contraseña</button>
+            <div class="alert-success" id="msg-pass">✅ Contraseña actualizada. Vuelve a iniciar sesión.</div>
+            <div class="alert-error" id="err-pass"></div>
+        </div>
+
+        <!-- Índice UV -->
+        <div class="form-section">
+            <h3><i class="fas fa-sun" style="color:#ff9800;margin-right:8px;"></i>Índice UV en tu zona</h3>
+            <p style="font-size:13px;color:#888;margin-bottom:16px;">Recuerda usar protector solar según el índice UV de tu ciudad.</p>
+            <div id="uv-widget"><button onclick="loadUVWidget()" style="padding:10px 20px;background:#00b894;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;">📡 Consultar índice UV</button></div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script src="asistente.js"></script>
+<script>
+// Cloudinary config (cambia con tus datos)
+const CLOUDINARY_CLOUD = 'tu_cloud_name';     // ← de tu cuenta Cloudinary
+const CLOUDINARY_PRESET = 'smartderm_profiles'; // ← crear en Cloudinary Settings → Upload → Unsigned
+
+window.addEventListener('DOMContentLoaded', async () => {
+    await new Promise(r => setTimeout(r, 700)); // esperar initSession de script.js
+    if (!currentUser) { window.location.href = 'index.html'; return; }
+    await cargarDatosPerfil();
+    if (typeof initAssistant === 'function') initAssistant({ containerId: null });
+});
+
+async function cargarDatosPerfil() {
+    const { data: perfil } = await db
+        .from('perfiles')
+        .select('*')
+        .eq('id', currentUser.id)
+        .single();
+    if (!perfil) return;
+
+    document.getElementById('f-nombre').value   = perfil.nombre   || '';
+    document.getElementById('f-email').value    = perfil.email    || '';
+    document.getElementById('f-bio').value      = perfil.bio      || '';
+    document.getElementById('f-privado').checked= !!perfil.privado;
+    document.getElementById('card-nombre').textContent = perfil.nombre || 'Sin nombre';
+    document.getElementById('card-email').textContent  = perfil.email  || '';
+    document.getElementById('card-rol').textContent    =
+        perfil.rol === 'admin' ? '👑 Administrador' :
+        perfil.rol === 'docente' ? '👨‍🏫 Docente' : '🎓 Estudiante';
+    document.getElementById('stat-fecha').textContent =
+        new Date(perfil.created_at).toLocaleDateString('es-CO', { year:'numeric', month:'short' });
+
+    if (perfil.avatar_url) document.getElementById('avatar-img').src = perfil.avatar_url;
+    if (perfil.rol === 'docente') document.getElementById('docente-banner').style.display = 'block';
+
+    // Estadísticas de inscripciones
+    const { data: inscripciones } = await db
+        .from('inscripciones')
+        .select('completado')
+        .eq('usuario_id', currentUser.id);
+    document.getElementById('stat-inscritos').textContent  = inscripciones?.length || 0;
+    document.getElementById('stat-completados').textContent = inscripciones?.filter(i => i.completado).length || 0;
+}
+
+async function guardarPerfil() {
+    const nombre  = document.getElementById('f-nombre').value.trim();
+    const bio     = document.getElementById('f-bio').value.trim();
+    const privado = document.getElementById('f-privado').checked;
+    if (!nombre) { showMsg('err-perfil', 'El nombre no puede estar vacío.'); return; }
+
+    const { error } = await db.from('perfiles').update({
+        nombre, bio, privado, updated_at: new Date().toISOString()
+    }).eq('id', currentUser.id);
+
+    if (error) { showMsg('err-perfil', 'Error: ' + error.message); return; }
+    document.getElementById('card-nombre').textContent = nombre;
+    showMsg('msg-perfil');
+}
+
+async function cambiarContrasena() {
+    const np = document.getElementById('f-newpass').value;
+    const cp = document.getElementById('f-confpass').value;
+    if (np.length < 6)  { showMsg('err-pass', 'Mínimo 6 caracteres.'); return; }
+    if (np !== cp)       { showMsg('err-pass', 'Las contraseñas no coinciden.'); return; }
+
+    const { error } = await db.auth.updateUser({ password: np });
+    if (error) { showMsg('err-pass', 'Error: ' + error.message); return; }
+    showMsg('msg-pass');
+    document.getElementById('f-newpass').value = '';
+    document.getElementById('f-confpass').value = '';
+}
+
+// Foto de perfil: intenta Cloudinary, fallback a URL directa
+async function handleAvatarChange(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    // Validar tamaño (máx 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+        alert('La imagen es demasiado grande. Máximo 2MB.'); return;
+    }
+
+    // Preview inmediato
+    const reader = new FileReader();
+    reader.onload = e => document.getElementById('avatar-img').src = e.target.result;
+    reader.readAsDataURL(file);
+
+    // Intentar subir a Cloudinary
+    if (CLOUDINARY_CLOUD !== 'tu_cloud_name') {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLOUDINARY_PRESET);
+        try {
+            const r   = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method:'POST', body: formData });
+            const d   = await r.json();
+            const url = d.secure_url;
+            await db.from('perfiles').update({ avatar_url: url }).eq('id', currentUser.id);
+            alert('✅ Foto de perfil actualizada.');
+        } catch {
+            alert('⚠️ Cloudinary no configurado. La foto se muestra pero no se guardará permanentemente.');
+        }
+    } else {
+        alert('ℹ️ Cloudinary no configurado. Configura CLOUDINARY_CLOUD en perfil.html para guardar fotos permanentemente.');
+    }
+}
+
+function showMsg(id, txt) {
+    // Ocultar todos los mensajes
+    ['msg-perfil','err-perfil','msg-pass','err-pass'].forEach(i => {
+        const el = document.getElementById(i); if (el) el.style.display = 'none';
+    });
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (txt) el.textContent = txt;
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 4000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Skincare Summit by SmartDerm</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── VARIABLES DE IDENTIDAD VISUAL SUMMIT ─────────────────────── */
+:root {
+    --summit-white:   #FFFFFF;
+    --summit-aqua:    #2ED1C3;
+    --summit-navy:    #0F2A44;
+    --summit-gray:    #6B7280;
+    --summit-lgray:   #F4F6F8;
+    --summit-border:  #E5E9EE;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--summit-white);color:var(--summit-navy);}
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.summit-hero{
+    background:linear-gradient(135deg,var(--summit-navy) 0%,#163556 60%,#1a4a70 100%);
+    color:#fff;padding:100px 40px 80px;text-align:center;position:relative;overflow:hidden;
+}
+.summit-hero::before{
+    content:'';position:absolute;inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232ED1C3' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events:none;
+}
+.summit-eyebrow{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--summit-aqua);margin-bottom:20px;}
+.summit-hero h1{font-family:'Montserrat',sans-serif;font-size:clamp(28px,5vw,54px);font-weight:800;line-height:1.15;margin-bottom:18px;max-width:900px;margin-left:auto;margin-right:auto;}
+.summit-hero h1 span{color:var(--summit-aqua);}
+.summit-hero-sub{font-size:17px;color:rgba(255,255,255,.75);max-width:650px;margin:0 auto 36px;line-height:1.7;}
+.summit-badges{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-bottom:44px;}
+.badge{background:rgba(46,209,195,.12);border:1px solid rgba(46,209,195,.35);color:var(--summit-aqua);padding:8px 18px;border-radius:30px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;}
+.summit-cta-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+.btn-summit-primary{background:var(--summit-aqua);color:var(--summit-navy);padding:14px 32px;border-radius:6px;font-weight:700;font-size:15px;text-decoration:none;border:none;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-summit-primary:hover{background:#22b8ab;transform:translateY(-1px);}
+.btn-summit-outline{background:transparent;color:#fff;padding:14px 32px;border-radius:6px;font-weight:600;font-size:15px;text-decoration:none;border:2px solid rgba(255,255,255,.3);cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-summit-outline:hover{border-color:var(--summit-aqua);color:var(--summit-aqua);}
+
+/* ── SECCIÓN GENÉRICA ─────────────────────────────────────────── */
+.section{padding:80px 40px;}
+.section-inner{max-width:1100px;margin:auto;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--summit-aqua);margin-bottom:10px;}
+.section-title{font-family:'Montserrat',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:700;color:var(--summit-navy);margin-bottom:16px;}
+.section-body{font-size:16px;color:var(--summit-gray);line-height:1.8;max-width:700px;}
+.divider{width:48px;height:3px;background:var(--summit-aqua);border-radius:2px;margin:16px 0 32px;}
+
+/* ── INFO STRIP ───────────────────────────────────────────────── */
+.info-strip{background:var(--summit-lgray);border-top:1px solid var(--summit-border);}
+.info-strip-inner{max-width:1100px;margin:auto;padding:36px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;}
+.info-item{display:flex;align-items:flex-start;gap:14px;}
+.info-icon{width:42px;height:42px;background:var(--summit-aqua);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0;}
+.info-item h4{font-size:13px;font-weight:600;color:var(--summit-gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.info-item p{font-size:16px;font-weight:600;color:var(--summit-navy);}
+
+/* ── PROGRAMA ─────────────────────────────────────────────────── */
+.agenda-tabs{display:flex;gap:4px;margin-bottom:32px;border-bottom:2px solid var(--summit-border);}
+.agenda-tab{padding:12px 24px;background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:var(--summit-gray);border-bottom:2px solid transparent;margin-bottom:-2px;font-family:'Inter',sans-serif;transition:.2s;}
+.agenda-tab.active{color:var(--summit-aqua);border-bottom-color:var(--summit-aqua);}
+.agenda-day{display:none;}
+.agenda-day.active{display:block;}
+.agenda-block{margin-bottom:12px;}
+.time-slot{display:grid;grid-template-columns:110px 1fr;gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--summit-border);}
+.time-col{background:var(--summit-navy);color:#fff;padding:18px 16px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;text-align:center;min-height:72px;}
+.slot-col{padding:18px 22px;background:#fff;}
+.slot-col h4{font-size:15px;font-weight:700;color:var(--summit-navy);margin-bottom:4px;}
+.slot-col p{font-size:13px;color:var(--summit-gray);}
+.slot-tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:6px;}
+.tag-opening{background:#e0f7fa;color:#007c91;}
+.tag-talk{background:#e8f5e9;color:#2e7d32;}
+.tag-expo{background:#fff3e0;color:#e65100;}
+.tag-panel{background:#f3e5f5;color:#7b1fa2;}
+.tag-close{background:#fce4ec;color:#c62828;}
+
+/* ── PATROCINIOS ──────────────────────────────────────────────── */
+.sponsors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:32px;}
+.sponsor-card{border:1.5px solid var(--summit-border);border-radius:12px;padding:28px;transition:.25s;}
+.sponsor-card:hover{border-color:var(--summit-aqua);box-shadow:0 6px 20px rgba(46,209,195,.12);}
+.sponsor-card h3{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:700;color:var(--summit-navy);margin-bottom:10px;}
+.sponsor-card .price{font-size:22px;font-weight:700;color:var(--summit-aqua);margin-bottom:16px;}
+.sponsor-benefits{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.sponsor-benefits li{font-size:14px;color:var(--summit-gray);display:flex;align-items:flex-start;gap:8px;}
+.sponsor-benefits li::before{content:'✓';color:var(--summit-aqua);font-weight:700;flex-shrink:0;}
+
+/* ── PIEZAS / MEDIA KIT ───────────────────────────────────────── */
+.pieces-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:32px;}
+.piece-card{background:var(--summit-lgray);border-radius:10px;padding:24px;border:1px solid var(--summit-border);}
+.piece-icon{font-size:28px;margin-bottom:12px;}
+.piece-card h4{font-size:15px;font-weight:700;color:var(--summit-navy);margin-bottom:6px;}
+.piece-card p{font-size:13px;color:var(--summit-gray);line-height:1.6;}
+
+/* ── FORMULARIOS ──────────────────────────────────────────────── */
+.forms-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;margin-top:36px;}
+.form-box{background:var(--summit-lgray);border-radius:14px;padding:32px;border:1px solid var(--summit-border);}
+.form-box h3{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--summit-navy);margin-bottom:6px;}
+.form-box p{font-size:14px;color:var(--summit-gray);margin-bottom:22px;line-height:1.6;}
+.summit-input{width:100%;padding:11px 14px;border:1.5px solid var(--summit-border);border-radius:7px;font-size:14px;font-family:'Inter',sans-serif;margin-bottom:12px;background:#fff;color:var(--summit-navy);transition:border-color .2s;}
+.summit-input:focus{outline:none;border-color:var(--summit-aqua);box-shadow:0 0 0 3px rgba(46,209,195,.12);}
+.summit-input::placeholder{color:#bbb;}
+.summit-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+.btn-summit-form{width:100%;padding:13px;background:var(--summit-aqua);color:var(--summit-navy);border:none;border-radius:7px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s;margin-top:4px;}
+.btn-summit-form:hover{background:#22b8ab;}
+.success-msg{display:none;background:#e0f7fa;border-left:4px solid var(--summit-aqua);padding:14px 16px;border-radius:0 8px 8px 0;font-size:14px;color:#007c91;margin-top:12px;}
+
+/* ── POST-EVENTO ──────────────────────────────────────────────── */
+.post-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:32px;}
+.post-card{background:var(--summit-white);border-radius:12px;padding:26px;border:1.5px solid var(--summit-border);text-align:center;}
+.post-num{font-family:'Montserrat',sans-serif;font-size:36px;font-weight:800;color:var(--summit-aqua);margin-bottom:8px;}
+.post-card h4{font-size:16px;font-weight:700;color:var(--summit-navy);margin-bottom:8px;}
+.post-card p{font-size:13px;color:var(--summit-gray);line-height:1.6;}
+
+/* ── FOOTER SUMMIT ────────────────────────────────────────────── */
+.summit-footer{background:var(--summit-navy);color:rgba(255,255,255,.6);padding:40px;text-align:center;font-size:13px;line-height:1.8;}
+.summit-footer a{color:var(--summit-aqua);text-decoration:none;}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media(max-width:700px){
+    .summit-hero{padding:70px 20px 60px;}
+    .section{padding:60px 20px;}
+    .time-slot{grid-template-columns:80px 1fr;}
+    .info-strip-inner{padding:28px 20px;}
+    .forms-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────────────── -->
+<div class="menu-btn"><i class="fas fa-bars fa-2x"></i></div>
+<nav class="nav-main">
+    <span class="nav-brand" style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:700;color:#2ED1C3;">SmartDerm</span>
+    <ul class="nav-menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="mis-cursos.html">Mis Cursos</a></li>
+        <li><a href="proximos-desarrollos.html">Próximos Desarrollos</a></li>
+        <li><a href="cursos-disponibles.html">Cursos Disponibles</a></li>
+        <li><a href="semilleros.html">Semilleros</a></li>
+        <li><a href="congresos.html">Congresos</a></li>
+        <li><a href="skincare-summit.html" style="color:#2ED1C3;font-weight:700;">Summit</a></li>
+        <li><a href="contacto.html">Más</a></li>
+    </ul>
+    <ul class="nav-menu-right">
+        <li id="btn-login-nav"><a href="#" onclick="typeof showLogin!=='undefined'?showLogin():window.location.href='index.html'" style="color:white;"><i class="fas fa-user"></i> Sesión</a></li>
+        <li id="nav-user-info-nav" style="display:none;">
+            <a href="perfil.html" style="color:white;"><i class="fas fa-user-circle"></i> <span id="nav-user-name-nav"></span></a>
+            <a href="#" onclick="logout()" style="background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:5px;color:white;font-size:13px;margin-left:6px;">Salir</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────────── -->
+<section class="summit-hero">
+    <p class="summit-eyebrow">Evento académico · SmartDerm 2025</p>
+    <h1>I Skincare Summit <span>by SmartDerm</span></h1>
+    <p class="summit-hero-sub">Ciencia aplicada en dermocosmética para la práctica clínica. El primer encuentro académico de SmartDerm dedicado a la evidencia, la innovación y la comunidad dermatológica.</p>
+    <div class="summit-badges">
+        <span class="badge"><i class="fas fa-calendar-alt"></i> 15 – 16 de Noviembre 2025</span>
+        <span class="badge"><i class="fas fa-map-marker-alt"></i> Bogotá · Modalidad Híbrida</span>
+        <span class="badge"><i class="fas fa-users"></i> Dermatólogos, Médicos y Cosmetólogos</span>
+        <span class="badge"><i class="fas fa-certificate"></i> Certificado de asistencia</span>
+    </div>
+    <div class="summit-cta-row">
+        <a href="#registro" class="btn-summit-primary"><i class="fas fa-user-plus"></i> Inscríbete ahora</a>
+        <a href="#programa" class="btn-summit-outline"><i class="fas fa-list"></i> Ver programa</a>
+    </div>
+</section>
+
+<!-- ── INFO STRIP ────────────────────────────────────────────────── -->
+<div class="info-strip">
+    <div class="info-strip-inner">
+        <div class="info-item">
+            <div class="info-icon"><i class="fas fa-calendar-check"></i></div>
+            <div><h4>Fechas</h4><p>15 – 16 Nov. 2025</p></div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div><h4>Sede</h4><p>Bogotá D.C. + Streaming</p></div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <div><h4>Charlas</h4><p>7 conferencias magistrales</p></div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fas fa-store"></i></div>
+            <div><h4>Muestra comercial</h4><p>Marcas dermocosméticas líderes</p></div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fas fa-comments"></i></div>
+            <div><h4>Conversatorio</h4><p>Panel de expertos día 2</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- ── ACERCA DEL SUMMIT ─────────────────────────────────────────── -->
+<section class="section" style="background:var(--summit-white);">
+    <div class="section-inner">
+        <p class="section-label">Sobre el evento</p>
+        <h2 class="section-title">¿Qué es el I Skincare Summit?</h2>
+        <div class="divider"></div>
+        <p class="section-body">El I Skincare Summit by SmartDerm es el primer congreso académico de nuestra plataforma, diseñado para reunir a profesionales de la dermatología, la medicina general y la cosmetología en torno a la ciencia aplicada en dermocosmética. El evento combina conferencias magistrales, muestra comercial de marcas líderes y un conversatorio de expertos, bajo un formato clínico, riguroso y sin la estética spa que suele dominar este sector.</p>
+        <br>
+        <p class="section-body">Nuestro objetivo es construir una comunidad académica de referencia en Colombia y Latinoamérica, conectar a los asistentes con los mejores productos y avances del mercado, y abrir la puerta a formaciones avanzadas de SmartDerm para quienes quieran profundizar tras el evento.</p>
+    </div>
+</section>
+
+<!-- ── PROGRAMA ──────────────────────────────────────────────────── -->
+<section class="section" id="programa" style="background:var(--summit-lgray);border-top:1px solid var(--summit-border);">
+    <div class="section-inner">
+        <p class="section-label">Agenda académica</p>
+        <h2 class="section-title">Programa del Evento</h2>
+        <div class="divider"></div>
+
+        <div class="agenda-tabs">
+            <button class="agenda-tab active" onclick="switchDay(0,this)">Día 1 – 15 Nov.</button>
+            <button class="agenda-tab" onclick="switchDay(1,this)">Día 2 – 16 Nov.</button>
+        </div>
+
+        <!-- DÍA 1 -->
+        <div class="agenda-day active" id="day-0">
+
+            <p style="font-size:13px;font-weight:600;color:var(--summit-aqua);margin-bottom:18px;letter-spacing:.5px;">☀️ MAÑANA</p>
+
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">8:00 – 8:30</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-opening">Apertura</span>
+                        <h4>Bienvenida institucional y presentación del Summit</h4>
+                        <p>Equipo SmartDerm · Objetivos, agenda y dinámica del evento.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">8:30 – 9:30</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-talk">Charla 1</span>
+                        <h4>Barrera cutánea y microbioma: bases para la cosmética clínica</h4>
+                        <p>La nueva comprensión de la función barrera y su relación con el microbioma como punto de partida para cualquier elección cosmética fundada en evidencia.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">9:30 – 10:30</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-talk">Charla 2</span>
+                        <h4>Fotoprotección 2025: más allá del FPS</h4>
+                        <p>Filtros modernos, protección frente a luz visible e infrarroja, y la prescripción dermatológica del protector solar como herramienta terapéutica.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">10:30 – 11:30</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-expo">Muestra comercial</span>
+                        <h4>Receso con exhibición de marcas dermocosméticas</h4>
+                        <p>Contacto directo con representantes de casas dermocosméticas patrocinantes, muestras y demostraciones de producto.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p style="font-size:13px;font-weight:600;color:var(--summit-aqua);margin:24px 0 18px;letter-spacing:.5px;">🌤️ TARDE</p>
+
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">1:30 – 2:30</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-talk">Charla 3</span>
+                        <h4>Retinoides en la práctica: del retinol a la tretinoína</h4>
+                        <p>Comparativa de moléculas, dosis, tolerabilidad y cómo individualizar el tratamiento retinoide según el perfil del paciente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">2:30 – 3:30</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-talk">Charla 4</span>
+                        <h4>Ácidos en cosmética: AHA, BHA y PHA — aplicación clínica</h4>
+                        <p>Mecanismos de acción, indicaciones específicas, combinaciones efectivas y errores frecuentes en la prescripción de ácidos cosmecéuticos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">3:30 – 4:30</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-talk">Charla 5</span>
+                        <h4>Hiperpigmentación: diagnóstico diferencial y manejo actualizado</h4>
+                        <p>Melasma, PIH, manchas solares y lentigines. Algoritmo diagnóstico y opciones de tratamiento cosmecéutico y procedimientos de consultorio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DÍA 2 -->
+        <div class="agenda-day" id="day-1">
+
+            <p style="font-size:13px;font-weight:600;color:var(--summit-aqua);margin-bottom:18px;letter-spacing:.5px;">☀️ MAÑANA</p>
+
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">8:00 – 9:00</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-talk">Charla 6</span>
+                        <h4>Piel sensible y rosácea: diagnóstico cosmético y terapéutico</h4>
+                        <p>Identificación del paciente con piel reactiva, detonantes, y construcción de rutinas cosmecéuticas que no agraven el cuadro clínico.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">9:00 – 10:00</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-talk">Charla 7</span>
+                        <h4>Niacinamida, vitamina C y péptidos: evidencia y mitos</h4>
+                        <p>Revisión crítica de la evidencia disponible sobre los activos cosméticos más populares: dosis efectivas, estabilidad, sinergias y antagonismos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">10:00 – 11:00</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-expo">Muestra comercial</span>
+                        <h4>Segunda muestra y networking con patrocinadores</h4>
+                        <p>Espacio de networking, degustación de productos y contacto con líneas dermocosmética de vanguardia.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">11:00 – 12:00</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-panel">Conversatorio</span>
+                        <h4>Mesa de expertos: ¿Hacia dónde va la dermocosmética en Colombia?</h4>
+                        <p>Panel abierto con preguntas del público sobre regulación, tendencias de mercado, IA aplicada a la dermatología y retos de la práctica clínica actual.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="agenda-block">
+                <div class="time-slot">
+                    <div class="time-col">12:00 – 12:30</div>
+                    <div class="slot-col">
+                        <span class="slot-tag tag-close">Clausura</span>
+                        <h4>Cierre oficial y entrega de certificados</h4>
+                        <p>Palabras de cierre del equipo SmartDerm, invitación a la comunidad académica y presentación de los programas avanzados de formación.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── PATROCINIOS ───────────────────────────────────────────────── -->
+<section class="section" id="patrocinios" style="background:var(--summit-white);">
+    <div class="section-inner">
+        <p class="section-label">Oportunidades de patrocinio</p>
+        <h2 class="section-title">Sé parte del Summit</h2>
+        <div class="divider"></div>
+        <p class="section-body">El I Skincare Summit by SmartDerm es la plataforma ideal para posicionar su marca ante un público altamente cualificado de profesionales de la salud. Las oportunidades de patrocinio ofrecen visibilidad integral antes, durante y después del evento.</p>
+
+        <div class="sponsors-grid">
+            <div class="sponsor-card">
+                <h3>🥇 Patrocinador Principal</h3>
+                <p class="price">Paquete Premium</p>
+                <ul class="sponsor-benefits">
+                    <li>Logo destacado en toda la comunicación oficial del evento (digital e impresa)</li>
+                    <li>Stand premium en la muestra comercial (días 1 y 2)</li>
+                    <li>Espacio de presentación de 10 minutos ante todos los asistentes</li>
+                    <li>Inclusión en el mailing masivo a la base de datos SmartDerm</li>
+                    <li>Mención prioritaria en redes sociales (3 publicaciones exclusivas)</li>
+                    <li>5 inscripciones gratuitas al evento para su equipo</li>
+                    <li>Acceso a grabación del evento para uso interno</li>
+                </ul>
+            </div>
+            <div class="sponsor-card">
+                <h3>🥈 Co-patrocinador</h3>
+                <p class="price">Paquete Estándar</p>
+                <ul class="sponsor-benefits">
+                    <li>Logo en materiales digitales del evento y pantallas</li>
+                    <li>Stand en la muestra comercial (un día a elección)</li>
+                    <li>Mención en mailing y en redes sociales (1 publicación)</li>
+                    <li>3 inscripciones gratuitas al evento</li>
+                    <li>Inclusión de material informativo en kit del asistente (digital)</li>
+                </ul>
+            </div>
+            <div class="sponsor-card">
+                <h3>🥉 Aliado Institucional</h3>
+                <p class="price">Paquete Básico</p>
+                <ul class="sponsor-benefits">
+                    <li>Logo en materiales digitales y pantalla de agradecimientos</li>
+                    <li>Mención en redes sociales (story de agradecimiento)</li>
+                    <li>2 inscripciones gratuitas al evento</li>
+                    <li>Ficha institucional en el directorio de aliados SmartDerm</li>
+                </ul>
+            </div>
+        </div>
+
+        <p style="margin-top:24px;font-size:14px;color:var(--summit-gray);text-align:center;">
+            ¿Interesado en patrocinar? Complete el formulario de intención más abajo o escríbanos a <a href="mailto:alianzas@smartderm.co" style="color:var(--summit-aqua);">alianzas@smartderm.co</a>
+        </p>
+    </div>
+</section>
+
+<!-- ── IDENTIDAD VISUAL / PIEZAS ──────────────────────────────────── -->
+<section class="section" style="background:var(--summit-lgray);border-top:1px solid var(--summit-border);">
+    <div class="section-inner">
+        <p class="section-label">Materiales del evento</p>
+        <h2 class="section-title">Piezas Gráficas y Media Kit</h2>
+        <div class="divider"></div>
+        <p class="section-body">El Summit cuenta con una identidad visual clínica y minimalista, alineada con los valores de SmartDerm: ciencia, claridad y profesionalismo. Todas las piezas están disponibles para patrocinadores según su nivel de participación.</p>
+
+        <div class="pieces-grid">
+            <div class="piece-card">
+                <div class="piece-icon">📋</div>
+                <h4>Media Kit para Patrocinadores</h4>
+                <p>Documento con estadísticas de la plataforma SmartDerm, perfiles del público asistente, paquetes de patrocinio y condiciones de uso del logo. Disponible en PDF bajo solicitud.</p>
+            </div>
+            <div class="piece-card">
+                <div class="piece-icon">✉️</div>
+                <h4>Invitación Formal a Casas Dermocosméticas</h4>
+                <p>Carta de invitación institucional personalizable para enviar a directores de marketing y médicos de las principales casas dermocosméticas del país.</p>
+            </div>
+            <div class="piece-card">
+                <div class="piece-icon">📱</div>
+                <h4>Piezas para Redes Sociales</h4>
+                <p>Set de 6 imágenes para carrusel de Instagram/LinkedIn: anuncio del evento, programa, speakers, patrocinadores, countdown y recordatorio de inscripción. Formato 1:1 y 4:5.</p>
+            </div>
+            <div class="piece-card">
+                <div class="piece-icon">🗂️</div>
+                <h4>Landing / Brochure Digital</h4>
+                <p>Esta misma página funciona como brochure digital. Versión descargable en PDF disponible en formato A4 apaisado, con diseño editorial alineado a la identidad del Summit.</p>
+            </div>
+        </div>
+
+        <!-- Muestra de paleta de colores -->
+        <div style="margin-top:40px;">
+            <p class="section-label" style="margin-bottom:14px;">Paleta de identidad visual</p>
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+                <div style="text-align:center;">
+                    <div style="width:64px;height:64px;border-radius:8px;background:#FFFFFF;border:1.5px solid #E5E9EE;margin-bottom:6px;"></div>
+                    <span style="font-size:11px;color:var(--summit-gray);">#FFFFFF<br>Blanco</span>
+                </div>
+                <div style="text-align:center;">
+                    <div style="width:64px;height:64px;border-radius:8px;background:#2ED1C3;margin-bottom:6px;"></div>
+                    <span style="font-size:11px;color:var(--summit-gray);">#2ED1C3<br>Aguamarina</span>
+                </div>
+                <div style="text-align:center;">
+                    <div style="width:64px;height:64px;border-radius:8px;background:#0F2A44;margin-bottom:6px;"></div>
+                    <span style="font-size:11px;color:var(--summit-gray);">#0F2A44<br>Azul Profundo</span>
+                </div>
+                <div style="text-align:center;">
+                    <div style="width:64px;height:64px;border-radius:8px;background:#6B7280;margin-bottom:6px;"></div>
+                    <span style="font-size:11px;color:var(--summit-gray);">#6B7280<br>Gris Neutro</span>
+                </div>
+                <div style="text-align:center;">
+                    <div style="width:64px;height:64px;border-radius:8px;background:#F4F6F8;border:1.5px solid #E5E9EE;margin-bottom:6px;"></div>
+                    <span style="font-size:11px;color:var(--summit-gray);">#F4F6F8<br>Fondo Claro</span>
+                </div>
+            </div>
+            <p style="margin-top:14px;font-size:13px;color:var(--summit-gray);">Tipografías: <strong>Montserrat</strong> (títulos) · <strong>Inter</strong> (cuerpo) · <strong>Open Sans</strong> (alternativa)</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── FORMULARIOS DE REGISTRO Y PATROCINIO ───────────────────────── -->
+<section class="section" id="registro" style="background:var(--summit-white);">
+    <div class="section-inner">
+        <p class="section-label">Inscripciones</p>
+        <h2 class="section-title">Participa en el Summit</h2>
+        <div class="divider"></div>
+
+        <div class="forms-grid">
+            <!-- Formulario asistentes -->
+            <div class="form-box">
+                <h3>📝 Registro de Asistentes</h3>
+                <p>Completa el formulario para asegurar tu lugar. El evento tiene cupo limitado tanto en modalidad presencial como virtual.</p>
+                <input class="summit-input" type="text" id="reg-nombre" placeholder="Nombre completo *">
+                <input class="summit-input" type="email" id="reg-email" placeholder="Correo electrónico *">
+                <select class="summit-input summit-select" id="reg-profesion">
+                    <option value="">Selecciona tu profesión</option>
+                    <option>Dermatólogo/a</option>
+                    <option>Médico General</option>
+                    <option>Cosmetóloga/o</option>
+                    <option>Enfermera/o</option>
+                    <option>Estudiante de medicina</option>
+                    <option>Otro profesional de salud</option>
+                    <option>Representante de casa cosmética</option>
+                    <option>Otro</option>
+                </select>
+                <select class="summit-input summit-select" id="reg-modalidad">
+                    <option value="">Modalidad de asistencia *</option>
+                    <option>Presencial – Bogotá</option>
+                    <option>Virtual – Streaming en vivo</option>
+                </select>
+                <textarea class="summit-input" id="reg-pregunta" rows="3" placeholder="¿Hay algún tema que te gustaría que se abordara en el conversatorio? (opcional)"></textarea>
+                <button class="btn-summit-form" onclick="submitRegistro()">Reservar mi lugar →</button>
+                <div class="success-msg" id="msg-registro">✅ ¡Registro exitoso! Te enviaremos la confirmación y el acceso al evento en los próximos días. ¡Nos vemos en el Summit!</div>
+            </div>
+
+            <!-- Formulario patrocinadores -->
+            <div class="form-box">
+                <h3>🤝 Intención de Patrocinio</h3>
+                <p>Si representas una casa dermocosméica u organización aliada, completa este formulario y nuestro equipo de alianzas se pondrá en contacto contigo dentro de las 48 horas.</p>
+                <input class="summit-input" type="text" id="sp-empresa" placeholder="Nombre de la empresa *">
+                <input class="summit-input" type="text" id="sp-contacto" placeholder="Nombre del contacto *">
+                <input class="summit-input" type="text" id="sp-cargo" placeholder="Cargo en la empresa *">
+                <input class="summit-input" type="email" id="sp-email" placeholder="Correo electrónico *">
+                <input class="summit-input" type="tel" id="sp-tel" placeholder="Teléfono / WhatsApp">
+                <select class="summit-input summit-select" id="sp-nivel">
+                    <option value="">Nivel de patrocinio de interés</option>
+                    <option>Patrocinador Principal (Premium)</option>
+                    <option>Co-patrocinador (Estándar)</option>
+                    <option>Aliado Institucional (Básico)</option>
+                    <option>Aún no lo tengo definido</option>
+                </select>
+                <button class="btn-summit-form" onclick="submitPatrocinio()">Enviar intención →</button>
+                <div class="success-msg" id="msg-patrocinio">✅ ¡Recibimos tu intención! Nuestro equipo de alianzas te contactará en menos de 48 horas. ¡Gracias por apoyar el I Skincare Summit!</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── ESTRATEGIA POST-EVENTO ─────────────────────────────────────── -->
+<section class="section" style="background:var(--summit-lgray);border-top:1px solid var(--summit-border);">
+    <div class="section-inner">
+        <p class="section-label">Después del evento</p>
+        <h2 class="section-title">El Summit como punto de partida</h2>
+        <div class="divider"></div>
+        <p class="section-body">El I Skincare Summit no es un evento aislado: es el primer paso para construir la comunidad académica de referencia en dermocosmética en Colombia. Esto es lo que sigue para todos los asistentes.</p>
+
+        <div class="post-grid">
+            <div class="post-card">
+                <div class="post-num">01</div>
+                <h4>Acceso a grabaciones</h4>
+                <p>Todos los asistentes registrados recibirán acceso a las grabaciones de las 7 conferencias durante 30 días post-evento.</p>
+            </div>
+            <div class="post-card">
+                <div class="post-num">02</div>
+                <h4>Certificado oficial</h4>
+                <p>Se expedirá un certificado de asistencia avalado por SmartDerm, descargable desde tu perfil en la plataforma.</p>
+            </div>
+            <div class="post-card">
+                <div class="post-num">03</div>
+                <h4>Formación avanzada</h4>
+                <p>Los asistentes tendrán acceso prioritario y descuento especial a los nuevos cursos de certificación profesional de SmartDerm.</p>
+            </div>
+            <div class="post-card">
+                <div class="post-num">04</div>
+                <h4>Comunidad académica</h4>
+                <p>Acceso al grupo privado de la comunidad SmartDerm Summit para continuar el diálogo, compartir casos y mantenerse actualizado.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────── -->
+<footer class="summit-footer">
+    <p style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;">I Skincare Summit by SmartDerm</p>
+    <p>15 – 16 de Noviembre 2025 · Bogotá D.C. · Modalidad Híbrida</p>
+    <p style="margin-top:10px;">
+        <a href="mailto:info@smartderm.co">info@smartderm.co</a> &nbsp;·&nbsp;
+        <a href="mailto:alianzas@smartderm.co">alianzas@smartderm.co</a>
+    </p>
+    <p style="margin-top:16px;font-size:12px;">
+        <a href="index.html">Volver a SmartDerm</a> &nbsp;·&nbsp;
+        <a href="terminos.html">Términos</a> &nbsp;·&nbsp;
+        <a href="privacidad.html">Privacidad</a>
+    </p>
+    <p style="margin-top:12px;font-size:11px;opacity:.5;">© 2025 SmartDerm · Todos los derechos reservados</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+<script src="asistente.js"></script>
+<script>
+// Tabs del programa
+function switchDay(idx, el) {
+    document.querySelectorAll('.agenda-day').forEach((d,i) => d.classList.toggle('active', i === idx));
+    document.querySelectorAll('.agenda-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+}
+
+// Formulario asistentes
+function submitRegistro() {
+    const nombre   = document.getElementById('reg-nombre').value.trim();
+    const email    = document.getElementById('reg-email').value.trim();
+    const modalidad= document.getElementById('reg-modalidad').value;
+    if (!nombre || !email || !modalidad) { alert('Por favor completa los campos obligatorios (*)'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Por favor ingresa un email válido.'); return; }
+
+    // Guardar en localStorage (simulado)
+    const regs = JSON.parse(localStorage.getItem('summit_registros') || '[]');
+    regs.push({ nombre, email, profesion: document.getElementById('reg-profesion').value,
+        modalidad, pregunta: document.getElementById('reg-pregunta').value, ts: Date.now() });
+    localStorage.setItem('summit_registros', JSON.stringify(regs));
+
+    document.getElementById('msg-registro').style.display = 'block';
+    ['reg-nombre','reg-email','reg-pregunta'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('reg-profesion').selectedIndex = 0;
+    document.getElementById('reg-modalidad').selectedIndex = 0;
+}
+
+// Formulario patrocinio
+function submitPatrocinio() {
+    const empresa  = document.getElementById('sp-empresa').value.trim();
+    const contacto = document.getElementById('sp-contacto').value.trim();
+    const email    = document.getElementById('sp-email').value.trim();
+    const cargo    = document.getElementById('sp-cargo').value.trim();
+    if (!empresa || !contacto || !email || !cargo) { alert('Por favor completa los campos obligatorios (*)'); return; }
+
+    const sps = JSON.parse(localStorage.getItem('summit_patrocinadores') || '[]');
+    sps.push({ empresa, contacto, cargo, email,
+        tel: document.getElementById('sp-tel').value,
+        nivel: document.getElementById('sp-nivel').value, ts: Date.now() });
+    localStorage.setItem('summit_patrocinadores', JSON.stringify(sps));
+
+    document.getElementById('msg-patrocinio').style.display = 'block';
+    ['sp-empresa','sp-contacto','sp-cargo','sp-email','sp-tel'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('sp-nivel').selectedIndex = 0;
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth', block:'start' }); }
+    });
+});
+
+// Navbar update
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof actualizarNavbarIndex === 'function') actualizarNavbarIndex();
+    if (typeof initAssistant === 'function') initAssistant({ containerId: null });
+});
+</script>
+</body>
+</html>
